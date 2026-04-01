@@ -39,7 +39,7 @@
       padding:0 max(32px, calc((100vw - var(--max-w))/2));
     }
     .nav-inner { width:100%; display:flex; align-items:center; justify-content:space-between; gap:32px; }
-    .nav-logo { text-decoration:none; font-weight:900; font-size:1.5rem; letter-spacing:-0.5px; }
+    .nav-logo { text-decoration:none; font-weight:900; font-size:1.5rem; letter-spacing:-0.5px; cursor:pointer; }
     .logo-top { color:var(--blue); }
     .logo-go  { color:var(--yellow); }
     .nav-links { display:flex; align-items:center; gap:0; list-style:none; }
@@ -186,29 +186,56 @@
     /* ── TRIPS ── */
     .trips-section { background:var(--bg); }
     .trips-list { display:flex; flex-direction:column; gap:10px; }
-    .trip-row { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:16px 22px; display:flex; align-items:center; gap:20px; cursor:pointer; transition:all 0.15s; }
+
+    /* trip-row : layout propre */
+    .trip-row {
+      background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+      padding:16px 22px; display:grid;
+      grid-template-columns: 64px 1px 1fr auto auto;
+      align-items:center; gap:18px;
+      cursor:pointer; transition:all 0.15s;
+    }
     .trip-row:hover { border-color:var(--blue); box-shadow:0 2px 16px rgba(0,170,255,0.1); transform:translateX(2px); }
-    .tt { text-align:center; min-width:52px; }
-    .th { font-weight:900; font-size:0.95rem; color:var(--navy); }
-    .td { font-size:0.7rem; color:var(--text-soft); margin-top:2px; }
-    .tdiv { width:1px; height:32px; background:var(--border); flex-shrink:0; }
-    .tr { flex:1; min-width:0; }
-    .tc { display:flex; align-items:center; gap:7px; font-weight:700; font-size:0.9rem; color:var(--navy); }
-    .ta2 { color:var(--text-soft); }
-    .tc-sep { color:var(--border); font-size:0.8rem; }
-    .ttags { display:flex; gap:5px; margin-top:6px; flex-wrap:wrap; }
+
+    /* colonne heure */
+    .tr-time { text-align:center; }
+    .tr-time .th { font-weight:900; font-size:0.95rem; color:var(--navy); }
+    .tr-time .td { font-size:0.7rem; color:var(--text-soft); margin-top:2px; }
+
+    /* séparateur vertical */
+    .tr-div { width:1px; height:36px; background:var(--border); }
+
+    /* colonne route */
+    .tr-route { min-width:0; }
+    .tr-cities { display:flex; align-items:center; gap:7px; font-weight:700; font-size:0.9rem; color:var(--navy); }
+    .tr-cities .arr { color:var(--text-soft); }
+    .tr-cities .sep { color:var(--border); font-size:0.8rem; }
+    .tr-tags { display:flex; gap:5px; margin-top:6px; flex-wrap:wrap; }
     .tag { font-size:0.68rem; padding:2px 8px; border-radius:50px; font-weight:700; }
     .tg  { background:#edfaf4; color:#0a9060; }
     .tb2 { background:var(--blue-pale); color:var(--blue-dark); }
     .ty2 { background:#fff8e1; color:#b45309; }
-    .tav { min-width:42px; text-align:center; }
-    .avc { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--navy)); color:#fff; font-weight:800; font-size:0.82rem; display:flex; align-items:center; justify-content:center; margin:0 auto 3px; }
-    .avn { font-size:0.68rem; font-weight:700; color:var(--text-mid); }
-    .avs { font-size:0.65rem; color:#f59e0b; }
-    .tprice { text-align:right; min-width:90px; }
-    .tprice .amt { font-weight:900; font-size:1.1rem; color:var(--navy); }
-    .tprice .unit { font-size:0.66rem; color:var(--text-soft); font-weight:600; }
-    .tprice .seats { font-size:0.68rem; color:var(--text-soft); margin-top:2px; }
+
+    /* colonne conducteur */
+    .tr-driver { display:flex; flex-direction:column; align-items:center; min-width:52px; }
+    .tr-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--navy)); color:#fff; font-weight:800; font-size:0.82rem; display:flex; align-items:center; justify-content:center; margin:0 auto 3px; overflow:hidden; }
+    .tr-avatar img { width:100%; height:100%; object-fit:cover; }
+    .tr-dname { font-size:0.68rem; font-weight:700; color:var(--text-mid); text-align:center; }
+    .tr-stars { font-size:0.65rem; color:#f59e0b; }
+
+    /* colonne prix */
+    .tr-price { text-align:right; min-width:90px; }
+    .tr-price .amt { font-weight:900; font-size:1.1rem; color:var(--navy); }
+    .tr-price .unit { font-size:0.66rem; color:var(--text-soft); font-weight:600; }
+    .tr-price .seats { font-size:0.68rem; color:var(--text-soft); margin-top:2px; }
+    .tr-price .seats.low { color:#e67e22; }
+
+    /* ── API LOADING STATE ── */
+    .trips-loader { text-align:center; padding:40px; color:var(--text-soft); }
+    .trips-loader i { font-size:1.5rem; animation:spin 1s linear infinite; display:block; margin-bottom:12px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .trips-empty { text-align:center; padding:50px; color:var(--text-soft); }
+    .trips-empty i { font-size:2.5rem; display:block; margin-bottom:12px; color:var(--border); }
 
     /* ── SEARCH RESULTS PAGE ── */
     .results-page { padding:32px max(32px,calc((100vw - var(--max-w))/2)); min-height:calc(100vh - 68px); margin-top:68px; }
@@ -224,8 +251,6 @@
     .filters-bar { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
     .filter-chip { border:1.5px solid var(--border); background:#fff; border-radius:50px; padding:6px 14px; font-size:0.78rem; font-weight:700; color:var(--text-mid); cursor:pointer; transition:all 0.15s; }
     .filter-chip:hover, .filter-chip.active { border-color:var(--blue); color:var(--blue); background:var(--blue-pale); }
-    .no-results { text-align:center; padding:60px 20px; color:var(--text-soft); }
-    .no-results i { font-size:3rem; margin-bottom:16px; display:block; color:var(--border); }
 
     /* ── BOOKING PAGE ── */
     .booking-page { padding:32px max(32px,calc((100vw - var(--max-w))/2)); min-height:calc(100vh - 68px); margin-top:68px; }
@@ -269,7 +294,7 @@
 
     /* ── PARTNERS ── */
     .partners-sec { background:#fff; padding:56px 0; border-top:1px solid var(--border); }
-    .ptitle { text-align:center; font-weight:700; font-size:0.72rem; color:var(--text-soft); text-transform:uppercase; letter-spacing:2px; margin-bottom:32px; padding:0 max(32px,calc((100vw - var(--max-w))/2)); }
+    .ptitle { text-align:center; font-weight:700; font-size:0.72rem; color:var(--text-soft); text-transform:uppercase; letter-spacing:2px; margin-bottom:32px; }
     .partners-ticker { overflow:hidden; width:100%; position:relative; }
     .partners-ticker::before, .partners-ticker::after { content:''; position:absolute; top:0; bottom:0; width:100px; z-index:2; pointer-events:none; }
     .partners-ticker::before { left:0; background:linear-gradient(to right,#fff,transparent); }
@@ -278,7 +303,6 @@
     @keyframes ticker-scroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
     .pchip { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:14px 22px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; cursor:pointer; min-width:120px; height:64px; flex-shrink:0; }
     .pchip:hover { border-color:var(--blue); box-shadow:0 2px 12px rgba(0,170,255,0.12); transform:translateY(-2px); }
-    .pchip img { max-height:36px; max-width:100px; object-fit:contain; display:block; }
     .visa-text { font-family:serif; font-weight:900; font-size:1.6rem; color:#1a1f71; letter-spacing:-2px; font-style:italic; }
     .mc-wrap { display:flex; align-items:center; }
     .mc-r { width:22px; height:22px; border-radius:50%; background:#eb001b; }
@@ -327,40 +351,76 @@
     .fcol ul li a:hover { color:var(--blue); }
     .fbot { border-top:1px solid rgba(255,255,255,0.06); padding-top:22px; display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; color:rgba(255,255,255,0.2); flex-wrap:wrap; gap:10px; }
 
-    /* ── CHATBOT ── */
-    #basile-btn { position:fixed; bottom:28px; right:28px; z-index:99999; width:62px; height:62px; border-radius:50%; background:linear-gradient(135deg,var(--blue) 0%,var(--navy) 100%); border:3px solid #fff; cursor:pointer; box-shadow:0 6px 28px rgba(0,30,60,0.4); display:flex; align-items:center; justify-content:center; transition:transform 0.2s, box-shadow 0.2s; color:#fff; font-size:1.4rem; }
-    #basile-btn:hover { transform:scale(1.08); box-shadow:0 8px 32px rgba(0,170,255,0.35); }
-    #basile-btn .notif-dot { position:absolute; top:4px; right:4px; width:11px; height:11px; border-radius:50%; background:#FFB800; border:2px solid #fff; animation:pulse-dot 2s infinite; }
-    @keyframes pulse-dot { 0%,100% { transform:scale(1); } 50% { transform:scale(1.25); } }
-    #basile-window { position:fixed; bottom:104px; right:28px; z-index:99998; width:370px; height:530px; background:#fff; border-radius:20px; box-shadow:0 20px 60px rgba(0,30,60,0.2); display:flex; flex-direction:column; overflow:hidden; border:1px solid var(--border); transition:opacity 0.25s, transform 0.25s; transform-origin:bottom right; }
-    #basile-window.hidden { opacity:0; pointer-events:none; transform:scale(0.85); }
-    .basile-header { background:linear-gradient(135deg,var(--blue) 0%,var(--navy) 100%); padding:16px 20px; display:flex; align-items:center; gap:12px; flex-shrink:0; }
-    .basile-avatar { width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:1.2rem; border:2px solid rgba(255,255,255,0.25); }
-    .basile-info { flex:1; }
-    .basile-name { color:#fff; font-weight:800; font-size:0.95rem; }
-    .basile-status { color:rgba(255,255,255,0.7); font-size:0.72rem; display:flex; align-items:center; gap:5px; }
-    .basile-status::before { content:''; width:7px; height:7px; border-radius:50%; background:#4ade80; display:inline-block; }
-    .basile-close { background:rgba(255,255,255,0.15); border:none; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; transition:background 0.15s; }
-    .basile-close:hover { background:rgba(255,255,255,0.25); }
-    .basile-messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px; background:#F8FAFC; }
-    .basile-messages::-webkit-scrollbar { width:4px; }
-    .basile-messages::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
-    .bmsg { max-width:82%; padding:10px 14px; border-radius:16px; font-size:0.84rem; line-height:1.55; font-weight:500; }
-    .bmsg.bot { background:#fff; color:var(--text); border:1px solid var(--border); border-bottom-left-radius:4px; align-self:flex-start; box-shadow:0 1px 4px rgba(0,30,60,0.06); }
-    .bmsg.user { background:linear-gradient(135deg,var(--blue),#0088DD); color:#fff; border-bottom-right-radius:4px; align-self:flex-end; }
-    .bmsg.typing { display:flex; gap:5px; align-items:center; padding:12px 14px; }
+    /* ── CHATBOT KLOE ZONI ── */
+    #kloe-btn {
+      position:fixed; bottom:28px; right:28px; z-index:99999;
+      width:64px; height:64px; border-radius:50%;
+      background:linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+      border:3px solid #fff; cursor:pointer;
+      box-shadow:0 6px 28px rgba(0,30,60,0.4);
+      display:flex; align-items:center; justify-content:center;
+      transition:transform 0.2s, box-shadow 0.2s;
+      color:#fff; font-size:1.5rem; overflow:hidden;
+    }
+    #kloe-btn:hover { transform:scale(1.08); box-shadow:0 8px 32px rgba(0,170,255,0.35); }
+    #kloe-btn .notif-dot {
+      position:absolute; top:4px; right:4px; width:12px; height:12px;
+      border-radius:50%; background:var(--yellow); border:2px solid #fff;
+      animation:pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot { 0%,100% { transform:scale(1); } 50% { transform:scale(1.3); } }
+
+    #kloe-window {
+      position:fixed; bottom:108px; right:28px; z-index:99998;
+      width:380px; height:540px; background:#fff; border-radius:22px;
+      box-shadow:0 20px 60px rgba(0,30,60,0.22);
+      display:flex; flex-direction:column; overflow:hidden;
+      border:1px solid var(--border);
+      transition:opacity 0.25s, transform 0.25s;
+      transform-origin:bottom right;
+    }
+    #kloe-window.hidden { opacity:0; pointer-events:none; transform:scale(0.85); }
+
+    .kloe-header {
+      background:linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+      padding:16px 20px; display:flex; align-items:center; gap:12px; flex-shrink:0;
+    }
+    .kloe-avatar {
+      width:44px; height:44px; border-radius:50%;
+      background:rgba(255,255,255,0.15);
+      border:2px solid rgba(255,255,255,0.3);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem; overflow:hidden; flex-shrink:0;
+    }
+    .kloe-info { flex:1; }
+    .kloe-name { color:#fff; font-weight:800; font-size:1rem; }
+    .kloe-status { color:rgba(255,255,255,0.7); font-size:0.72rem; display:flex; align-items:center; gap:5px; }
+    .kloe-status::before { content:''; width:7px; height:7px; border-radius:50%; background:#4ade80; display:inline-block; }
+    .kloe-close { background:rgba(255,255,255,0.15); border:none; color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; transition:background 0.15s; }
+    .kloe-close:hover { background:rgba(255,255,255,0.25); }
+
+    .kloe-messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px; background:#F8FAFC; }
+    .kloe-messages::-webkit-scrollbar { width:4px; }
+    .kloe-messages::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+    .kmsg { max-width:84%; padding:10px 14px; border-radius:16px; font-size:0.84rem; line-height:1.55; font-weight:500; }
+    .kmsg.bot { background:#fff; color:var(--text); border:1px solid var(--border); border-bottom-left-radius:4px; align-self:flex-start; box-shadow:0 1px 4px rgba(0,30,60,0.06); }
+    .kmsg.user { background:linear-gradient(135deg,var(--blue),#0088DD); color:#fff; border-bottom-right-radius:4px; align-self:flex-end; }
+    .kmsg.typing { display:flex; gap:5px; align-items:center; padding:12px 14px; }
     .typing-dot { width:7px; height:7px; border-radius:50%; background:#B0BCCC; animation:typing-bounce 1.2s infinite; }
     .typing-dot:nth-child(2) { animation-delay:0.2s; }
     .typing-dot:nth-child(3) { animation-delay:0.4s; }
     @keyframes typing-bounce { 0%,60%,100% { transform:translateY(0); } 30% { transform:translateY(-6px); } }
-    .basile-input-row { display:flex; gap:8px; padding:14px 16px; border-top:1px solid var(--border); background:#fff; flex-shrink:0; }
-    #basile-input { flex:1; border:1.5px solid var(--border); border-radius:24px; padding:9px 16px; font-family:inherit; font-size:0.84rem; outline:none; transition:border-color 0.15s; color:var(--text); resize:none; min-height:38px; max-height:80px; }
-    #basile-input:focus { border-color:var(--blue); }
-    #basile-send { width:38px; height:38px; border-radius:50%; flex-shrink:0; background:var(--blue); border:none; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; font-size:0.85rem; }
-    #basile-send:hover { background:var(--blue-dark); }
-    .basile-suggestions { display:flex; flex-wrap:wrap; gap:6px; padding:0 16px 12px; background:#fff; flex-shrink:0; }
-    .bsugg { font-size:0.72rem; padding:5px 12px; border-radius:20px; border:1.5px solid var(--blue); color:var(--blue); background:var(--blue-pale); cursor:pointer; font-weight:700; transition:all 0.15s; }
-    .bsugg:hover { background:var(--blue); color:#fff; }
+
+    .kloe-suggestions { display:flex; flex-wrap:wrap; gap:6px; padding:0 16px 10px; background:#fff; flex-shrink:0; }
+    .ksugg { font-size:0.72rem; padding:5px 12px; border-radius:20px; border:1.5px solid var(--blue); color:var(--blue); background:var(--blue-pale); cursor:pointer; font-weight:700; transition:all 0.15s; }
+    .ksugg:hover { background:var(--blue); color:#fff; }
+
+    .kloe-input-row { display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--border); background:#fff; flex-shrink:0; }
+    #kloe-input { flex:1; border:1.5px solid var(--border); border-radius:24px; padding:9px 16px; font-family:inherit; font-size:0.84rem; outline:none; transition:border-color 0.15s; color:var(--text); resize:none; min-height:38px; max-height:80px; }
+    #kloe-input:focus { border-color:var(--blue); }
+    #kloe-send { width:38px; height:38px; border-radius:50%; flex-shrink:0; background:var(--blue); border:none; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; font-size:0.85rem; }
+    #kloe-send:hover { background:var(--blue-dark); }
 
     /* ── RESPONSIVE ── */
     @media(max-width:1024px) { .dest-grid { grid-template-columns:repeat(2,1fr); } .route-images-grid { grid-template-columns:1fr; } .booking-grid { grid-template-columns:1fr; } }
@@ -378,7 +438,9 @@
       .driver-banner { padding:56px 20px; }
       .form-row { grid-template-columns:1fr; }
       .payment-methods { grid-template-columns:1fr; }
-      #basile-window { width:calc(100vw - 56px); }
+      #kloe-window { width:calc(100vw - 40px); right:20px; }
+      .trip-row { grid-template-columns: 56px 1px 1fr auto; }
+      .tr-driver { display:none; }
     }
     @media(max-width:480px) { .dest-grid { grid-template-columns:1fr; } .fg { grid-template-columns:1fr; } }
   </style>
@@ -388,7 +450,7 @@
 <!-- NAVBAR -->
 <nav>
   <div class="nav-inner">
-    <a class="nav-logo" href="#" onclick="showPage('home')"><span class="logo-top">TopTop</span><span class="logo-go">Go</span></a>
+    <span class="nav-logo" onclick="showPage('home')"><span class="logo-top">TopTop</span><span class="logo-go">Go</span></span>
     <ul class="nav-links">
       <li><a onclick="showPage('home')" class="active" id="nav-home">Covoiturage</a></li>
       <li><a onclick="showPage('home')" id="nav-bus">Bus</a></li>
@@ -412,6 +474,7 @@
 
 <!-- ═══════════ PAGE: HOME ═══════════ -->
 <div id="page-home" class="page active">
+
   <!-- HERO -->
   <div class="hero">
     <div class="hero-left">
@@ -419,100 +482,12 @@
       <p>Des milliers de trajets chaque jour entre vos villes préférées. Paiement en FCFA, Mobile Money accepté partout.</p>
     </div>
     <div class="hero-right">
-      <!-- Image vectorielle du trajet Brazzaville-Pointe-Noire -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" style="position:absolute;inset:0;width:100%;height:100%">
-        <defs>
-          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#87CEEB"/>
-            <stop offset="60%" stop-color="#E0F4FF"/>
-            <stop offset="100%" stop-color="#C8E6C9"/>
-          </linearGradient>
-          <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#546E7A"/>
-            <stop offset="100%" stop-color="#37474F"/>
-          </linearGradient>
-        </defs>
-        <!-- Ciel et fond -->
-        <rect width="800" height="600" fill="url(#skyGrad)"/>
-        <!-- Soleil -->
-        <circle cx="620" cy="90" r="55" fill="#FFD54F" opacity="0.9"/>
-        <circle cx="620" cy="90" r="45" fill="#FFEB3B"/>
-        <!-- Nuages -->
-        <ellipse cx="150" cy="100" rx="70" ry="30" fill="white" opacity="0.8"/>
-        <ellipse cx="200" cy="85" rx="50" ry="25" fill="white" opacity="0.8"/>
-        <ellipse cx="450" cy="130" rx="60" ry="25" fill="white" opacity="0.6"/>
-        <!-- Végétation tropicale fond -->
-        <ellipse cx="50" cy="350" rx="80" ry="120" fill="#2E7D32" opacity="0.4"/>
-        <ellipse cx="750" cy="320" rx="90" ry="130" fill="#388E3C" opacity="0.4"/>
-        <!-- Collines -->
-        <ellipse cx="200" cy="420" rx="200" ry="100" fill="#4CAF50" opacity="0.5"/>
-        <ellipse cx="600" cy="400" rx="220" ry="90" fill="#388E3C" opacity="0.4"/>
-        <!-- Route principale -->
-        <path d="M 0 480 Q 200 460 400 465 Q 600 470 800 450" stroke="url(#roadGrad)" stroke-width="60" fill="none" stroke-linecap="round"/>
-        <path d="M 0 480 Q 200 460 400 465 Q 600 470 800 450" stroke="#455A64" stroke-width="56" fill="none" stroke-linecap="round"/>
-        <!-- Lignes blanches de la route -->
-        <path d="M 50 480 Q 150 465 250 467" stroke="white" stroke-width="3" fill="none" stroke-dasharray="20,15"/>
-        <path d="M 300 470 Q 400 467 500 468" stroke="white" stroke-width="3" fill="none" stroke-dasharray="20,15"/>
-        <path d="M 550 466 Q 650 460 750 455" stroke="white" stroke-width="3" fill="none" stroke-dasharray="20,15"/>
-        <!-- Palmiers -->
-        <g transform="translate(100, 380)">
-          <rect x="-5" y="0" width="10" height="80" fill="#795548" rx="5"/>
-          <ellipse cx="0" cy="-10" rx="40" ry="20" fill="#33691E" transform="rotate(-20)"/>
-          <ellipse cx="0" cy="-10" rx="40" ry="20" fill="#558B2F" transform="rotate(20)"/>
-          <ellipse cx="0" cy="-15" rx="35" ry="18" fill="#33691E" transform="rotate(70)"/>
-          <ellipse cx="0" cy="-15" rx="35" ry="18" fill="#558B2F" transform="rotate(-70)"/>
-        </g>
-        <g transform="translate(690, 360)">
-          <rect x="-5" y="0" width="10" height="70" fill="#795548" rx="5"/>
-          <ellipse cx="0" cy="-10" rx="35" ry="18" fill="#33691E" transform="rotate(-15)"/>
-          <ellipse cx="0" cy="-10" rx="35" ry="18" fill="#558B2F" transform="rotate(25)"/>
-          <ellipse cx="0" cy="-12" rx="30" ry="15" fill="#33691E" transform="rotate(75)"/>
-        </g>
-        <!-- Bus TopTopGo -->
-        <g transform="translate(320, 395)">
-          <!-- Corps du bus -->
-          <rect x="0" y="0" width="180" height="75" rx="8" fill="#001E3C"/>
-          <rect x="4" y="4" width="172" height="67" rx="6" fill="#003060"/>
-          <!-- Fenêtres -->
-          <rect x="15" y="12" width="28" height="22" rx="4" fill="#87CEEB"/>
-          <rect x="52" y="12" width="28" height="22" rx="4" fill="#87CEEB"/>
-          <rect x="89" y="12" width="28" height="22" rx="4" fill="#87CEEB"/>
-          <rect x="126" y="12" width="28" height="22" rx="4" fill="#87CEEB"/>
-          <!-- Bande logo -->
-          <rect x="0" y="40" width="180" height="20" fill="#00AAFF" opacity="0.8"/>
-          <text x="90" y="54" text-anchor="middle" fill="white" font-family="Arial Black" font-size="11" font-weight="900">TopTopGo</text>
-          <!-- Roues -->
-          <circle cx="35" cy="75" r="18" fill="#263238"/>
-          <circle cx="35" cy="75" r="11" fill="#455A64"/>
-          <circle cx="35" cy="75" r="5" fill="#90A4AE"/>
-          <circle cx="145" cy="75" r="18" fill="#263238"/>
-          <circle cx="145" cy="75" r="11" fill="#455A64"/>
-          <circle cx="145" cy="75" r="5" fill="#90A4AE"/>
-          <!-- Phares -->
-          <rect x="165" y="8" width="15" height="10" rx="2" fill="#FFD54F"/>
-          <rect x="165" y="24" width="15" height="8" rx="2" fill="#FF5722" opacity="0.6"/>
-        </g>
-        <!-- Panneau Brazzaville -->
-        <g transform="translate(60, 280)">
-          <rect x="0" y="0" width="130" height="38" rx="6" fill="#001E3C"/>
-          <rect x="3" y="3" width="124" height="32" rx="4" fill="#0077CC"/>
-          <text x="65" y="16" text-anchor="middle" fill="white" font-family="Arial" font-size="9" font-weight="bold">🚌 Brazzaville</text>
-          <text x="65" y="28" text-anchor="middle" fill="#FFB800" font-family="Arial" font-size="8">Capital du Congo</text>
-          <rect x="60" y="38" width="10" height="16" fill="#001E3C"/>
-          <polygon points="55,54 75,54 65,66" fill="#001E3C"/>
-        </g>
-        <!-- Panneau Libreville -->
-        <g transform="translate(610, 260)">
-          <rect x="0" y="0" width="130" height="38" rx="6" fill="#001E3C"/>
-          <rect x="3" y="3" width="124" height="32" rx="4" fill="#006633"/>
-          <text x="65" y="16" text-anchor="middle" fill="white" font-family="Arial" font-size="9" font-weight="bold">✈ Libreville</text>
-          <text x="65" y="28" text-anchor="middle" fill="#FFB800" font-family="Arial" font-size="8">Gabon</text>
-          <rect x="60" y="38" width="10" height="16" fill="#001E3C"/>
-          <polygon points="55,54 75,54 65,66" fill="#001E3C"/>
-        </g>
-        <!-- Overlay gradient pour intégration -->
-        <rect width="800" height="600" fill="url(#heroOverlay)" opacity="0.1"/>
-      </svg>
+      <!-- Image femme africaine voyageuse -->
+      <img 
+        src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=900&h=700&fit=crop&q=80" 
+        alt="Femme voyageuse africaine"
+        onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#001E3C,#003060)';"
+      />
     </div>
 
     <!-- SEARCH BAR -->
@@ -536,15 +511,8 @@
           <div class="sf">
             <div class="sf-icon"><i class="fas fa-calendar-alt"></i></div>
             <div class="sf-content">
-              <span class="sf-label">Départ</span>
+              <span class="sf-label">Date départ</span>
               <input type="date" id="search-date" style="color-scheme:light;"/>
-            </div>
-          </div>
-          <div class="sf" style="border-right:1px solid var(--border)">
-            <div class="sf-icon"><i class="fas fa-calendar-check"></i></div>
-            <div class="sf-content">
-              <span class="sf-label">Date de retour</span>
-              <input type="date" id="search-return" style="color-scheme:light;"/>
             </div>
           </div>
           <div class="sf" style="flex:1.2; position:relative;" onclick="togglePassengers()">
@@ -568,14 +536,6 @@
                   <button class="pax-btn" onclick="changePax('children',-1)">−</button>
                   <span class="pax-count" id="pax-children">0</span>
                   <button class="pax-btn" onclick="changePax('children',1)">+</button>
-                </div>
-              </div>
-              <div class="pax-row">
-                <div><div class="pax-label">Bébés</div><div class="pax-sub">Moins de 2 ans</div></div>
-                <div class="pax-controls">
-                  <button class="pax-btn" onclick="changePax('infants',-1)">−</button>
-                  <span class="pax-count" id="pax-infants">0</span>
-                  <button class="pax-btn" onclick="changePax('infants',1)">+</button>
                 </div>
               </div>
             </div>
@@ -602,22 +562,7 @@
     <div class="dest-grid">
       <a class="dest-card" onclick="quickSearch('Brazzaville','Pointe-Noire')">
         <div class="dest-img-wrap">
-          <svg class="dest-img" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1565C0"/><stop offset="100%" stop-color="#0D47A1"/></linearGradient></defs>
-            <rect width="400" height="200" fill="url(#g1)"/>
-            <rect y="120" width="400" height="80" fill="#37474F"/>
-            <rect y="148" width="400" height="6" fill="#546E7A"/>
-            <!-- Skyline Brazzaville -->
-            <rect x="20" y="60" width="30" height="80" fill="#1976D2"/>
-            <rect x="55" y="45" width="25" height="95" fill="#1565C0"/>
-            <rect x="85" y="70" width="40" height="70" fill="#0D47A1"/>
-            <rect x="130" y="50" width="20" height="90" fill="#1976D2"/>
-            <rect x="155" y="80" width="35" height="60" fill="#1565C0"/>
-            <rect x="195" y="40" width="25" height="100" fill="#0D47A1"/>
-            <!-- Fleuve Congo -->
-            <ellipse cx="200" cy="170" rx="250" ry="30" fill="#1E88E5" opacity="0.5"/>
-            <text x="200" y="185" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Arial" font-size="9">Fleuve Congo</text>
-          </svg>
+          <div class="dest-img" style="background:url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=400&h=200&fit=crop') center/cover;"></div>
           <div class="dest-overlay"></div>
         </div>
         <div class="dest-body">
@@ -628,19 +573,7 @@
       </a>
       <a class="dest-card" onclick="quickSearch('Douala','Yaoundé')">
         <div class="dest-img-wrap">
-          <svg class="dest-img" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="200" fill="#1B5E20"/>
-            <rect y="130" width="400" height="70" fill="#2E7D32"/>
-            <ellipse cx="200" cy="130" rx="300" ry="60" fill="#388E3C"/>
-            <rect x="30" y="70" width="20" height="80" fill="#795548"/>
-            <ellipse cx="30" cy="60" rx="25" ry="30" fill="#2E7D32"/>
-            <ellipse cx="30" cy="55" rx="20" ry="25" fill="#4CAF50"/>
-            <rect x="180" y="50" width="15" height="100" fill="#795548"/>
-            <ellipse cx="180" cy="40" rx="22" ry="28" fill="#2E7D32"/>
-            <ellipse cx="350" cy="80" rx="30" ry="35" fill="#388E3C"/>
-            <rect x="348" y="80" width="4" height="60" fill="#795548"/>
-            <text x="200" y="175" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial" font-size="10" font-weight="bold">Douala → Yaoundé</text>
-          </svg>
+          <div class="dest-img" style="background:url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=200&fit=crop') center/cover;"></div>
           <div class="dest-overlay"></div>
         </div>
         <div class="dest-body">
@@ -651,14 +584,7 @@
       </a>
       <a class="dest-card" onclick="quickSearch('Libreville','Port-Gentil')">
         <div class="dest-img-wrap">
-          <svg class="dest-img" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#006064"/><stop offset="100%" stop-color="#00ACC1"/></linearGradient></defs>
-            <rect width="400" height="200" fill="url(#g3)"/>
-            <rect y="100" width="400" height="100" fill="#00838F"/>
-            <path d="M0,120 Q100,90 200,110 Q300,130 400,100 L400,200 L0,200Z" fill="#0097A7"/>
-            <circle cx="300" cy="60" r="35" fill="#FFD54F" opacity="0.8"/>
-            <text x="200" y="170" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial" font-size="10" font-weight="bold">Libreville · Gabon</text>
-          </svg>
+          <div class="dest-img" style="background:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop') center/cover; background-position:center;"></div>
           <div class="dest-overlay"></div>
         </div>
         <div class="dest-body">
@@ -669,240 +595,20 @@
       </a>
       <a class="dest-card" onclick="quickSearch('Kinshasa','Lubumbashi')">
         <div class="dest-img-wrap">
-          <svg class="dest-img" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="200" fill="#4A148C"/>
-            <rect y="120" width="400" height="80" fill="#311B92"/>
-            <circle cx="200" cy="70" r="40" fill="#7B1FA2" opacity="0.6"/>
-            <rect x="50" y="60" width="25" height="90" fill="#6A1B9A"/>
-            <rect x="85" y="75" width="20" height="75" fill="#7B1FA2"/>
-            <rect x="200" y="55" width="30" height="95" fill="#6A1B9A"/>
-            <rect x="300" y="65" width="22" height="85" fill="#7B1FA2"/>
-            <text x="200" y="180" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial" font-size="10">Kinshasa · RDC</text>
-          </svg>
+          <div class="dest-img" style="background:url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=400&h=200&fit=crop&sat=-50') center/cover;"></div>
           <div class="dest-overlay"></div>
         </div>
         <div class="dest-body">
           <div class="dest-route"><div class="ddot d"></div><span>Kinshasa</span><div class="dline"></div><div class="ddot"></div><span>Lubumbashi</span></div>
           <div class="dest-price">À partir de 15 000 FCFA</div>
-          <div class="dest-meta">19 trajets · Bus</div>
+          <div class="dest-meta">19 trajets · Bus longue distance</div>
         </div>
       </a>
     </div>
   </div>
 
-  <!-- IMAGES TRAJETS BRAZZAVILLE & LIBREVILLE -->
-  <div class="route-images-section">
-    <div class="section-header">
-      <div>
-        <div class="section-title">Nos trajets vedettes</div>
-        <div class="section-sub">Découvrez les itinéraires les plus prisés</div>
-      </div>
-    </div>
-    <div class="route-images-grid">
-      <!-- Trajet Brazzaville -->
-      <div class="route-img-card" onclick="quickSearch('Brazzaville','Pointe-Noire')">
-        <svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="brazSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1565C0"/>
-              <stop offset="50%" stop-color="#42A5F5"/>
-              <stop offset="100%" stop-color="#90CAF9"/>
-            </linearGradient>
-            <linearGradient id="brazRoad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#37474F"/>
-              <stop offset="100%" stop-color="#455A64"/>
-            </linearGradient>
-          </defs>
-          <!-- Ciel -->
-          <rect width="700" height="280" fill="url(#brazSky)"/>
-          <!-- Nuages -->
-          <ellipse cx="120" cy="50" rx="80" ry="28" fill="white" opacity="0.7"/>
-          <ellipse cx="170" cy="38" rx="55" ry="22" fill="white" opacity="0.7"/>
-          <ellipse cx="550" cy="65" rx="70" ry="24" fill="white" opacity="0.5"/>
-          <!-- Soleil -->
-          <circle cx="580" cy="55" r="40" fill="#FFD54F" opacity="0.9"/>
-          <!-- Skyline Brazzaville gauche -->
-          <rect x="10" y="100" width="35" height="120" fill="#1565C0"/>
-          <rect x="50" y="80" width="28" height="140" fill="#0D47A1"/>
-          <rect x="83" y="115" width="40" height="105" fill="#1976D2"/>
-          <rect x="128" y="90" width="22" height="130" fill="#1565C0"/>
-          <rect x="155" y="105" width="35" height="115" fill="#0D47A1"/>
-          <!-- Silhouette ville droite (Pointe-Noire) -->
-          <rect x="510" y="95" width="30" height="125" fill="#006064"/>
-          <rect x="545" y="110" width="25" height="110" fill="#00838F"/>
-          <rect x="575" y="80" width="35" height="140" fill="#006064"/>
-          <rect x="615" y="100" width="28" height="120" fill="#00838F"/>
-          <rect x="648" y="120" width="40" height="100" fill="#006064"/>
-          <!-- Route N1 Brazza-Pointe-Noire -->
-          <rect x="0" y="210" width="700" height="70" fill="url(#brazRoad)"/>
-          <rect x="0" y="215" width="700" height="55" fill="#546E7A"/>
-          <!-- Lignes de route -->
-          <line x1="0" y1="240" x2="700" y2="240" stroke="#607D8B" stroke-width="1"/>
-          <rect x="50" y="237" width="50" height="6" fill="white" rx="2" opacity="0.8"/>
-          <rect x="150" y="237" width="50" height="6" fill="white" rx="2" opacity="0.8"/>
-          <rect x="250" y="237" width="50" height="6" fill="white" rx="2" opacity="0.8"/>
-          <rect x="350" y="237" width="50" height="6" fill="white" rx="2" opacity="0.8"/>
-          <rect x="450" y="237" width="50" height="6" fill="white" rx="2" opacity="0.8"/>
-          <rect x="580" y="237" width="50" height="6" fill="white" rx="2" opacity="0.8"/>
-          <!-- Bus TopTopGo -->
-          <g transform="translate(285, 185)">
-            <rect x="0" y="0" width="130" height="55" rx="6" fill="#001E3C"/>
-            <rect x="3" y="3" width="124" height="49" rx="4" fill="#003060"/>
-            <rect x="10" y="8" width="22" height="16" rx="3" fill="#87CEEB"/>
-            <rect x="38" y="8" width="22" height="16" rx="3" fill="#87CEEB"/>
-            <rect x="66" y="8" width="22" height="16" rx="3" fill="#87CEEB"/>
-            <rect x="94" y="8" width="22" height="16" rx="3" fill="#87CEEB"/>
-            <rect x="0" y="30" width="130" height="14" fill="#00AAFF" opacity="0.9"/>
-            <text x="65" y="40" text-anchor="middle" fill="white" font-family="Arial Black" font-size="8" font-weight="900">TopTopGo</text>
-            <circle cx="25" cy="55" r="13" fill="#263238"/>
-            <circle cx="25" cy="55" r="8" fill="#455A64"/>
-            <circle cx="25" cy="55" r="3" fill="#90A4AE"/>
-            <circle cx="105" cy="55" r="13" fill="#263238"/>
-            <circle cx="105" cy="55" r="8" fill="#455A64"/>
-            <circle cx="105" cy="55" r="3" fill="#90A4AE"/>
-            <rect x="118" y="5" width="12" height="8" rx="2" fill="#FFD54F"/>
-          </g>
-          <!-- Fleuve Congo -->
-          <path d="M0,195 Q175,185 350,192 Q525,198 700,188 L700,215 L0,215Z" fill="#1E88E5" opacity="0.4"/>
-          <text x="200" y="210" fill="rgba(255,255,255,0.7)" font-family="Arial" font-size="8">Fleuve Congo</text>
-          <!-- Panneaux -->
-          <g transform="translate(15, 155)">
-            <rect width="100" height="28" rx="4" fill="#001E3C"/>
-            <text x="50" y="12" text-anchor="middle" fill="#00AAFF" font-family="Arial" font-size="7" font-weight="bold">📍 BRAZZAVILLE</text>
-            <text x="50" y="22" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial" font-size="6">Capital · Congo</text>
-          </g>
-          <g transform="translate(585, 155)">
-            <rect width="100" height="28" rx="4" fill="#001E3C"/>
-            <text x="50" y="12" text-anchor="middle" fill="#FFB800" font-family="Arial" font-size="7" font-weight="bold">🌊 POINTE-NOIRE</text>
-            <text x="50" y="22" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial" font-size="6">Port · 6h de route</text>
-          </g>
-          <!-- Flèche parcours -->
-          <line x1="120" y1="165" x2="580" y2="165" stroke="#FFB800" stroke-width="2" stroke-dasharray="10,6" opacity="0.7"/>
-          <polygon points="578,160 592,165 578,170" fill="#FFB800" opacity="0.7"/>
-        </svg>
-        <div class="route-badge">🔥 Populaire</div>
-        <div class="route-img-overlay">
-          <div class="route-img-title">Brazzaville → Pointe-Noire</div>
-          <div class="route-img-meta">
-            <span class="route-img-tag">🚌 42 trajets</span>
-            <span class="route-img-tag">⏱ 6h de route</span>
-            <span class="route-img-tag">💰 Dès 8 000 FCFA</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Trajet Libreville -->
-      <div class="route-img-card" onclick="quickSearch('Libreville','Port-Gentil')">
-        <svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="libSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#006064"/>
-              <stop offset="40%" stop-color="#00838F"/>
-              <stop offset="100%" stop-color="#80DEEA"/>
-            </linearGradient>
-            <linearGradient id="oceanGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#0097A7"/>
-              <stop offset="100%" stop-color="#006064"/>
-            </linearGradient>
-          </defs>
-          <!-- Ciel Gabon -->
-          <rect width="700" height="280" fill="url(#libSky)"/>
-          <!-- Soleil couchant -->
-          <circle cx="100" cy="70" r="50" fill="#FF8F00" opacity="0.8"/>
-          <circle cx="100" cy="70" r="38" fill="#FFB300"/>
-          <!-- Nuages tropicaux -->
-          <ellipse cx="300" cy="45" rx="90" ry="28" fill="white" opacity="0.4"/>
-          <ellipse cx="360" cy="32" rx="60" ry="22" fill="white" opacity="0.35"/>
-          <ellipse cx="560" cy="55" rx="70" ry="24" fill="white" opacity="0.3"/>
-          <!-- Océan Atlantique -->
-          <rect x="0" y="165" width="700" height="115" fill="url(#oceanGrad)"/>
-          <path d="M0,175 Q175,160 350,172 Q525,182 700,168 L700,165 L0,165Z" fill="#0097A7"/>
-          <!-- Vagues -->
-          <path d="M0,195 Q50,185 100,195 Q150,205 200,195 Q250,185 300,195 Q350,205 400,195 Q450,185 500,195 Q550,205 600,195 Q650,185 700,195" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
-          <path d="M0,215 Q70,205 140,215 Q210,225 280,215 Q350,205 420,215 Q490,225 560,215 Q630,205 700,215" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
-          <!-- Skyline Libreville -->
-          <rect x="180" y="80" width="30" height="105" fill="#004D40"/>
-          <rect x="215" y="65" width="25" height="120" fill="#00695C"/>
-          <rect x="245" y="90" width="40" height="95" fill="#004D40"/>
-          <rect x="290" y="75" width="22" height="110" fill="#00695C"/>
-          <rect x="317" y="85" width="35" height="100" fill="#004D40"/>
-          <rect x="357" y="60" width="28" height="125" fill="#00695C"/>
-          <rect x="390" y="95" width="32" height="90" fill="#004D40"/>
-          <rect x="427" y="70" width="25" height="115" fill="#00695C"/>
-          <rect x="457" y="88" width="38" height="97" fill="#004D40"/>
-          <!-- Palmiers au bord de mer -->
-          <g transform="translate(50, 120)">
-            <rect x="-4" y="0" width="8" height="60" fill="#4E342E" rx="4"/>
-            <ellipse cx="0" cy="-5" rx="30" ry="15" fill="#2E7D32" transform="rotate(-25)"/>
-            <ellipse cx="0" cy="-5" rx="30" ry="15" fill="#388E3C" transform="rotate(20)"/>
-            <ellipse cx="0" cy="-8" rx="26" ry="12" fill="#2E7D32" transform="rotate(70)"/>
-          </g>
-          <g transform="translate(650, 110)">
-            <rect x="-4" y="0" width="8" height="55" fill="#4E342E" rx="4"/>
-            <ellipse cx="0" cy="-5" rx="28" ry="13" fill="#33691E" transform="rotate(-20)"/>
-            <ellipse cx="0" cy="-5" rx="28" ry="13" fill="#558B2F" transform="rotate(25)"/>
-          </g>
-          <!-- Route Libreville -->
-          <rect x="0" y="150" width="700" height="22" fill="#37474F"/>
-          <rect x="60" y="156" width="40" height="4" fill="white" rx="2" opacity="0.7"/>
-          <rect x="160" y="156" width="40" height="4" fill="white" rx="2" opacity="0.7"/>
-          <rect x="260" y="156" width="40" height="4" fill="white" rx="2" opacity="0.7"/>
-          <rect x="360" y="156" width="40" height="4" fill="white" rx="2" opacity="0.7"/>
-          <rect x="460" y="156" width="40" height="4" fill="white" rx="2" opacity="0.7"/>
-          <rect x="580" y="156" width="40" height="4" fill="white" rx="2" opacity="0.7"/>
-          <!-- Bus TopTopGo Libreville -->
-          <g transform="translate(270, 120)">
-            <rect x="0" y="0" width="130" height="50" rx="6" fill="#001E3C"/>
-            <rect x="3" y="3" width="124" height="44" rx="4" fill="#00332A"/>
-            <rect x="10" y="7" width="20" height="14" rx="3" fill="#80DEEA"/>
-            <rect x="36" y="7" width="20" height="14" rx="3" fill="#80DEEA"/>
-            <rect x="62" y="7" width="20" height="14" rx="3" fill="#80DEEA"/>
-            <rect x="88" y="7" width="20" height="14" rx="3" fill="#80DEEA"/>
-            <rect x="0" y="26" width="130" height="12" fill="#00AAFF" opacity="0.9"/>
-            <text x="65" y="35" text-anchor="middle" fill="white" font-family="Arial Black" font-size="7.5" font-weight="900">TopTopGo</text>
-            <circle cx="25" cy="50" r="12" fill="#263238"/>
-            <circle cx="25" cy="50" r="7" fill="#455A64"/>
-            <circle cx="105" cy="50" r="12" fill="#263238"/>
-            <circle cx="105" cy="50" r="7" fill="#455A64"/>
-            <rect x="115" y="4" width="11" height="7" rx="2" fill="#FFD54F"/>
-          </g>
-          <!-- Panneaux -->
-          <g transform="translate(10, 100)">
-            <rect width="110" height="30" rx="4" fill="#001E3C"/>
-            <text x="55" y="13" text-anchor="middle" fill="#4DD0E1" font-family="Arial" font-size="7" font-weight="bold">📍 LIBREVILLE</text>
-            <text x="55" y="24" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Arial" font-size="6">Capitale · Gabon</text>
-          </g>
-          <g transform="translate(580, 100)">
-            <rect width="110" height="30" rx="4" fill="#001E3C"/>
-            <text x="55" y="13" text-anchor="middle" fill="#FFB800" font-family="Arial" font-size="7" font-weight="bold">🌊 PORT-GENTIL</text>
-            <text x="55" y="24" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Arial" font-size="6">Port pétrolier · 4h</text>
-          </g>
-          <!-- Bateau dans l'océan -->
-          <g transform="translate(550, 215)">
-            <rect x="0" y="0" width="80" height="20" rx="4" fill="#37474F"/>
-            <polygon points="0,0 80,0 70,-20 10,-20" fill="#455A64"/>
-            <rect x="35" y="-30" width="4" height="30" fill="#607D8B"/>
-            <polygon points="39,-28 55,-15 39,-10" fill="rgba(255,255,255,0.5)"/>
-          </g>
-          <!-- Flèche parcours -->
-          <line x1="125" y1="112" x2="575" y2="112" stroke="#FFB800" stroke-width="2" stroke-dasharray="10,6" opacity="0.6"/>
-          <polygon points="573,107 587,112 573,117" fill="#FFB800" opacity="0.6"/>
-        </svg>
-        <div class="route-badge">✈ Gabon</div>
-        <div class="route-img-overlay">
-          <div class="route-img-title">Libreville → Port-Gentil</div>
-          <div class="route-img-meta">
-            <span class="route-img-tag">🚌 35 trajets</span>
-            <span class="route-img-tag">⏱ 4h de route</span>
-            <span class="route-img-tag">💰 Dès 6 000 FCFA</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- HOW IT WORKS -->
-  <div class="section-wrap">
+  <div class="section-wrap" style="background:var(--bg);">
     <div class="section-header" style="justify-content:center;text-align:center;flex-direction:column;align-items:center;">
       <div class="section-title">Comment ça marche ?</div>
       <div class="section-sub" style="margin-top:6px;">En 3 étapes simples, réservez votre trajet</div>
@@ -914,20 +620,20 @@
     </div>
   </div>
 
-  <!-- TRIPS -->
+  <!-- TRIPS (chargés via API) -->
   <div class="trips-section section-wrap">
     <div class="section-header">
       <div>
         <div class="section-title">Trajets disponibles aujourd'hui</div>
-        <div class="section-sub">Partez dès maintenant sur ces itinéraires vérifiés</div>
+        <div class="section-sub">Données en temps réel depuis notre plateforme</div>
       </div>
       <a class="see-all" onclick="showPage('search')">Voir tous <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i></a>
     </div>
-    <div class="trips-list">
-      <div class="trip-row" onclick="showBooking('Brazzaville','Pointe-Noire','06:30','12:30','8 500')"><div class="tt"><div class="th">06:30</div><div class="td">→ 12:30</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Brazzaville</span><span class="tc-sep">→</span><span class="ta2">Pointe-Noire</span></div><div class="ttags"><span class="tag tg">✓ Vérifié</span><span class="tag tb2">❄️ Climatisé</span><span class="tag ty2">🎒 Bagage</span></div></div><div class="tav"><div class="avc">JK</div><div class="avn">Jean K.</div><div class="avs">★ 4.9</div></div><div class="tprice"><div class="amt">8 500</div><div class="unit">FCFA / place</div><div class="seats">3 places dispo</div></div></div>
-      <div class="trip-row" onclick="showBooking('Pointe-Noire','Dolisie','08:00','11:00','4 500')"><div class="tt"><div class="th">08:00</div><div class="td">→ 11:00</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Pointe-Noire</span><span class="tc-sep">→</span><span class="ta2">Dolisie</span></div><div class="ttags"><span class="tag tg">✓ Pro</span><span class="tag tb2">🚗 SUV</span></div></div><div class="tav"><div class="avc">AM</div><div class="avn">Amina M.</div><div class="avs">★ 4.7</div></div><div class="tprice"><div class="amt">4 500</div><div class="unit">FCFA / place</div><div class="seats">2 places dispo</div></div></div>
-      <div class="trip-row" onclick="showBooking('Douala','Yaoundé','14:00','17:00','5 000')"><div class="tt"><div class="th">14:00</div><div class="td">→ 17:00</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Douala</span><span class="tc-sep">→</span><span class="ta2">Yaoundé</span></div><div class="ttags"><span class="tag tg">✓ Assurance</span><span class="tag tb2">🎒 Bagage inclus</span></div></div><div class="tav"><div class="avc">PB</div><div class="avn">Paul B.</div><div class="avs">★ 5.0</div></div><div class="tprice"><div class="amt">5 000</div><div class="unit">FCFA / place</div><div class="seats">4 places dispo</div></div></div>
-      <div class="trip-row" onclick="showBooking('Libreville','Port-Gentil','07:30','11:30','6 200')"><div class="tt"><div class="th">07:30</div><div class="td">→ 11:30</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Libreville</span><span class="tc-sep">→</span><span class="ta2">Port-Gentil</span></div><div class="ttags"><span class="tag tg">✓ Vérifié</span><span class="tag ty2">🚌 Minibus</span></div></div><div class="tav"><div class="avc">SN</div><div class="avn">Sophie N.</div><div class="avs">★ 4.8</div></div><div class="tprice"><div class="amt">6 200</div><div class="unit">FCFA / place</div><div class="seats">5 places dispo</div></div></div>
+    <div class="trips-list" id="home-trips-list">
+      <div class="trips-loader">
+        <i class="fas fa-circle-notch"></i>
+        Chargement des trajets…
+      </div>
     </div>
     <div style="text-align:center;margin-top:28px;">
       <button class="btn-nav-outline" onclick="showPage('search')" style="padding:12px 36px;font-size:0.9rem;">Voir tous les trajets →</button>
@@ -1010,7 +716,7 @@
     <div class="fbot">
       <div>© 2026 TopTopGo. Tous droits réservés.</div>
       <div>🌍 Afrique Centrale · 💰 FCFA · 🇨🇬 Français</div>
-      <div>Fait avec ❤️ en Afrique</div>
+      <div>Fait avec ❤️ par <strong style="color:rgba(255,255,255,0.4);">Basile Ngassaki Zoni</strong></div>
     </div>
   </footer>
 </div>
@@ -1020,9 +726,8 @@
   <div class="results-page">
     <div class="results-header">
       <div class="results-title" id="results-title">Trajets disponibles</div>
-      <span class="results-count" id="results-count">4 trajets trouvés</span>
+      <span class="results-count" id="results-count">Chargement…</span>
     </div>
-    <!-- Barre de recherche accessible sur la page résultats -->
     <div class="results-search-bar">
       <div class="results-field">
         <label>Départ</label>
@@ -1035,15 +740,15 @@
       </div>
       <div class="results-divider"></div>
       <div class="results-field">
-        <label>Date départ</label>
+        <label>Date</label>
         <input type="date" id="r-date" style="color-scheme:light;"/>
       </div>
       <div class="results-divider"></div>
-      <div class="results-field" style="max-width:120px;">
+      <div class="results-field" style="max-width:110px;">
         <label>Passagers</label>
         <input type="number" id="r-pax" value="1" min="1" max="9"/>
       </div>
-      <button class="btn-search-sm" onclick="filterResults()"><i class="fas fa-search"></i> Rechercher</button>
+      <button class="btn-search-sm" onclick="loadSearchResults()"><i class="fas fa-search"></i> Rechercher</button>
     </div>
     <div class="filters-bar">
       <button class="filter-chip active" onclick="setFilter(this,'all')">Tous</button>
@@ -1053,12 +758,7 @@
       <button class="filter-chip" onclick="setFilter(this,'verifie')">✓ Vérifié</button>
     </div>
     <div class="trips-list" id="results-list">
-      <div class="trip-row" data-tags="verifie clim" onclick="showBooking('Brazzaville','Pointe-Noire','06:30','12:30','8 500')"><div class="tt"><div class="th">06:30</div><div class="td">→ 12:30</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Brazzaville</span><span class="tc-sep">→</span><span class="ta2">Pointe-Noire</span></div><div class="ttags"><span class="tag tg">✓ Vérifié</span><span class="tag tb2">❄️ Climatisé</span><span class="tag ty2">🎒 Bagage</span></div></div><div class="tav"><div class="avc">JK</div><div class="avn">Jean K.</div><div class="avs">★ 4.9</div></div><div class="tprice"><div class="amt">8 500</div><div class="unit">FCFA</div><div class="seats">3 places</div></div></div>
-      <div class="trip-row" data-tags="cov" onclick="showBooking('Pointe-Noire','Dolisie','08:00','11:00','4 500')"><div class="tt"><div class="th">08:00</div><div class="td">→ 11:00</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Pointe-Noire</span><span class="tc-sep">→</span><span class="ta2">Dolisie</span></div><div class="ttags"><span class="tag tg">✓ Pro</span><span class="tag tb2">🚗 SUV</span></div></div><div class="tav"><div class="avc">AM</div><div class="avn">Amina M.</div><div class="avs">★ 4.7</div></div><div class="tprice"><div class="amt">4 500</div><div class="unit">FCFA</div><div class="seats">2 places</div></div></div>
-      <div class="trip-row" data-tags="verifie bus" onclick="showBooking('Douala','Yaoundé','14:00','17:00','5 000')"><div class="tt"><div class="th">14:00</div><div class="td">→ 17:00</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Douala</span><span class="tc-sep">→</span><span class="ta2">Yaoundé</span></div><div class="ttags"><span class="tag tg">✓ Assurance</span><span class="tag tb2">🎒 Bagage inclus</span></div></div><div class="tav"><div class="avc">PB</div><div class="avn">Paul B.</div><div class="avs">★ 5.0</div></div><div class="tprice"><div class="amt">5 000</div><div class="unit">FCFA</div><div class="seats">4 places</div></div></div>
-      <div class="trip-row" data-tags="verifie bus" onclick="showBooking('Libreville','Port-Gentil','07:30','11:30','6 200')"><div class="tt"><div class="th">07:30</div><div class="td">→ 11:30</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Libreville</span><span class="tc-sep">→</span><span class="ta2">Port-Gentil</span></div><div class="ttags"><span class="tag tg">✓ Vérifié</span><span class="tag ty2">🚌 Minibus</span></div></div><div class="tav"><div class="avc">SN</div><div class="avn">Sophie N.</div><div class="avs">★ 4.8</div></div><div class="tprice"><div class="amt">6 200</div><div class="unit">FCFA</div><div class="seats">5 places</div></div></div>
-      <div class="trip-row" data-tags="cov clim" onclick="showBooking('Brazzaville','Dolisie','10:00','14:00','7 000')"><div class="tt"><div class="th">10:00</div><div class="td">→ 14:00</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Brazzaville</span><span class="tc-sep">→</span><span class="ta2">Dolisie</span></div><div class="ttags"><span class="tag tg">✓ Pro</span><span class="tag tb2">❄️ Climatisé</span></div></div><div class="tav"><div class="avc">FK</div><div class="avn">François K.</div><div class="avs">★ 4.6</div></div><div class="tprice"><div class="amt">7 000</div><div class="unit">FCFA</div><div class="seats">1 place</div></div></div>
-      <div class="trip-row" data-tags="bus verifie" onclick="showBooking('Kinshasa','Lubumbashi','06:00','18:00','15 000')"><div class="tt"><div class="th">06:00</div><div class="td">→ 18:00</div></div><div class="tdiv"></div><div class="tr"><div class="tc"><span>Kinshasa</span><span class="tc-sep">→</span><span class="ta2">Lubumbashi</span></div><div class="ttags"><span class="tag tg">✓ Vérifié</span><span class="tag tb2">🚌 Bus longue distance</span></div></div><div class="tav"><div class="avc">RM</div><div class="avn">Roger M.</div><div class="avs">★ 4.5</div></div><div class="tprice"><div class="amt">15 000</div><div class="unit">FCFA</div><div class="seats">8 places</div></div></div>
+      <div class="trips-loader"><i class="fas fa-circle-notch"></i>Chargement des trajets…</div>
     </div>
     <div style="margin-top:24px;">
       <button class="btn-nav-outline" onclick="showPage('home')" style="padding:10px 24px;">← Retour à l'accueil</button>
@@ -1075,7 +775,6 @@
     <h2 style="font-weight:900;font-size:1.6rem;color:var(--navy);margin-bottom:24px;" id="booking-title">Réserver votre trajet</h2>
     <div class="booking-grid">
       <div>
-        <!-- Infos passager -->
         <div class="booking-card">
           <h3><i class="fas fa-user" style="color:var(--blue);"></i> Informations passager</h3>
           <div class="form-row">
@@ -1087,7 +786,6 @@
             <div class="form-group"><label>Email</label><input type="email" placeholder="email@exemple.com"/></div>
           </div>
         </div>
-        <!-- Paiement -->
         <div class="booking-card">
           <h3><i class="fas fa-wallet" style="color:var(--blue);"></i> Mode de paiement</h3>
           <div class="payment-methods">
@@ -1108,12 +806,11 @@
               <div class="pm-label">Peex / Exchange</div>
             </div>
           </div>
-          <div style="margin-top:16px;" id="mtn-input">
-            <div class="form-group"><label>Numéro MTN Mobile Money</label><input type="tel" placeholder="+242 06 XXX XXX" id="mtn-number"/></div>
+          <div style="margin-top:16px;">
+            <div class="form-group"><label>Numéro Mobile Money</label><input type="tel" placeholder="+242 06 XXX XXX" id="mtn-number"/></div>
           </div>
         </div>
       </div>
-      <!-- Récapitulatif -->
       <div class="booking-summary">
         <div class="summary-title">📋 Récapitulatif</div>
         <div class="summary-row"><span class="summary-label">Trajet</span><span class="summary-val" id="sum-route">—</span></div>
@@ -1212,56 +909,88 @@
   </div>
 </div>
 
-<!-- CHATBOT BASILE -->
-<button id="basile-btn" onclick="toggleBasile()" aria-label="Chat avec Basile">
-  <i class="fas fa-comments"></i>
+<!-- ═══════════ CHATBOT KLOE ZONI ═══════════ -->
+<button id="kloe-btn" onclick="toggleKloe()" aria-label="Discuter avec Kloe">
+  <!-- Avatar femme stylisée -->
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="42" height="42">
+    <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.15)"/>
+    <!-- corps -->
+    <ellipse cx="32" cy="52" rx="18" ry="14" fill="rgba(255,255,255,0.2)"/>
+    <!-- tête -->
+    <circle cx="32" cy="26" r="14" fill="#FDBCB4"/>
+    <!-- cheveux -->
+    <path d="M18,22 Q18,10 32,10 Q46,10 46,22 Q46,15 32,12 Q18,12 18,22Z" fill="#1A0A00"/>
+    <path d="M18,24 Q14,26 15,34 Q17,30 20,28Z" fill="#1A0A00"/>
+    <path d="M46,24 Q50,26 49,34 Q47,30 44,28Z" fill="#1A0A00"/>
+    <!-- yeux -->
+    <ellipse cx="27" cy="27" rx="2.5" ry="2.5" fill="#1A0A00"/>
+    <ellipse cx="37" cy="27" rx="2.5" ry="2.5" fill="#1A0A00"/>
+    <!-- sourire -->
+    <path d="M26,33 Q32,38 38,33" stroke="#c0726a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- col -->
+    <path d="M22,40 Q32,44 42,40 L44,48 Q32,52 20,48Z" fill="rgba(255,255,255,0.3)"/>
+  </svg>
   <span class="notif-dot"></span>
 </button>
-<div id="basile-window" class="hidden">
-  <div class="basile-header">
-    <div class="basile-avatar">🚌</div>
-    <div class="basile-info">
-      <div class="basile-name">Basile – Assistant TopTopGo</div>
-      <div class="basile-status">En ligne · Répond en quelques secondes</div>
+
+<div id="kloe-window" class="hidden">
+  <div class="kloe-header">
+    <div class="kloe-avatar">
+      <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+        <circle cx="22" cy="22" r="22" fill="rgba(255,255,255,0.1)"/>
+        <ellipse cx="22" cy="36" rx="13" ry="10" fill="rgba(255,255,255,0.15)"/>
+        <circle cx="22" cy="18" r="10" fill="#FDBCB4"/>
+        <path d="M12,16 Q12,7 22,7 Q32,7 32,16 Q32,10 22,9 Q12,9 12,16Z" fill="#1A0A00"/>
+        <path d="M12,17 Q9,19 10,25 Q11,21 14,19Z" fill="#1A0A00"/>
+        <path d="M32,17 Q35,19 34,25 Q33,21 30,19Z" fill="#1A0A00"/>
+        <ellipse cx="19" cy="19" rx="1.8" ry="1.8" fill="#1A0A00"/>
+        <ellipse cx="25" cy="19" rx="1.8" ry="1.8" fill="#1A0A00"/>
+        <path d="M18,23 Q22,27 26,23" stroke="#c0726a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg>
     </div>
-    <button class="basile-close" onclick="toggleBasile()"><i class="fas fa-times"></i></button>
+    <div class="kloe-info">
+      <div class="kloe-name">Kloe Zoni</div>
+      <div class="kloe-status">Assistante TopTopGo · En ligne</div>
+    </div>
+    <button class="kloe-close" onclick="toggleKloe()"><i class="fas fa-times"></i></button>
   </div>
-  <div class="basile-messages" id="basile-msgs">
-    <div class="bmsg bot">👋 Bonjour ! Je suis <strong>Basile</strong>, votre assistant TopTopGo.<br/>Comment puis-je vous aider aujourd'hui ?</div>
+  <div class="kloe-messages" id="kloe-msgs">
+    <div class="kmsg bot">👋 Bonjour ! Je suis <strong>Kloe Zoni</strong>, votre assistante TopTopGo.<br/>Comment puis-je vous aider aujourd'hui ?</div>
   </div>
-  <div class="basile-suggestions" id="basile-sugg">
-    <button class="bsugg" onclick="quickSend(this)">🔍 Trouver un trajet</button>
-    <button class="bsugg" onclick="quickSend(this)">💰 Tarifs disponibles</button>
-    <button class="bsugg" onclick="quickSend(this)">🚗 Devenir conducteur</button>
-    <button class="bsugg" onclick="quickSend(this)">📱 Télécharger l'app</button>
+  <div class="kloe-suggestions" id="kloe-sugg">
+    <button class="ksugg" onclick="kloeSend(this)">🔍 Trouver un trajet</button>
+    <button class="ksugg" onclick="kloeSend(this)">💰 Voir les tarifs</button>
+    <button class="ksugg" onclick="kloeSend(this)">🚗 Devenir conducteur</button>
+    <button class="ksugg" onclick="kloeSend(this)">📱 Télécharger l'app</button>
   </div>
-  <div class="basile-input-row">
-    <textarea id="basile-input" placeholder="Écrivez votre message…" rows="1" onkeydown="handleKey(event)"></textarea>
-    <button id="basile-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+  <div class="kloe-input-row">
+    <textarea id="kloe-input" placeholder="Écrivez votre message…" rows="1" onkeydown="kloeKey(event)"></textarea>
+    <button id="kloe-send" onclick="kloeSendMsg()"><i class="fas fa-paper-plane"></i></button>
   </div>
 </div>
 
 <script>
-// ── PASSENGERS ─────────────────────
-let pax = { adults:1, children:0, infants:0 };
+// ── CONFIG API ───────────────────────────────
+const API_BASE = 'https://api.toptopgo.com/api'; // Remplacez par votre domaine réel
+
+// ── PASSENGERS ───────────────────────────────
+let pax = { adults:1, children:0 };
 
 function changePax(type, delta) {
-  pax[type] = Math.max(0, (type==='adults' ? Math.max(1,pax[type]) : pax[type]) + delta);
   if(type==='adults') pax.adults = Math.max(1, pax.adults + delta);
+  else pax.children = Math.max(0, pax.children + delta);
   document.getElementById('pax-'+type).textContent = pax[type];
   const total = pax.adults + pax.children;
   document.getElementById('pax-display').textContent = total===1 ? '1 passager' : total+' passagers';
 }
-
 function togglePassengers() {
-  const d = document.getElementById('paxDropdown');
-  d.classList.toggle('open');
+  document.getElementById('paxDropdown').classList.toggle('open');
 }
-document.addEventListener('click', function(e) {
+document.addEventListener('click', e => {
   if(!e.target.closest('.sf')) document.getElementById('paxDropdown').classList.remove('open');
 });
 
-// ── PAGE NAVIGATION ─────────────────
+// ── PAGE NAVIGATION ──────────────────────────
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
@@ -1269,180 +998,340 @@ function showPage(name) {
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
   const map = { home:'nav-home', search:'nav-bus', driver:'nav-driver' };
   if(map[name]) document.getElementById(map[name])?.classList.add('active');
+  if(name === 'search') loadSearchResults();
 }
 
-// ── SEARCH ──────────────────────────
-function doSearch() {
-  const from = document.getElementById('search-from').value.trim();
-  const to = document.getElementById('search-to').value.trim();
-  const date = document.getElementById('search-date').value;
-  if(!from && !to) { alert('Veuillez entrer une ville de départ ou de destination'); return; }
-  document.getElementById('r-from').value = from;
-  document.getElementById('r-to').value = to;
-  document.getElementById('r-date').value = date;
-  updateResultsTitle(from, to);
-  showPage('search');
-}
+// ── RENDER UN TRAJET ─────────────────────────
+function renderTripRow(trip, onclick_fn) {
+  const from = trip.departure || trip.pickup_address || '?';
+  const to   = trip.destination || trip.dropoff_address || '?';
+  const dep  = trip.departure_time ? trip.departure_time.slice(0,5) : '—';
+  const price = trip.price_per_seat || trip.amount || 0;
+  const seats = trip.available_seats || 0;
+  const driver = trip.driver;
+  const dname = driver ? (driver.name || driver.first_name + ' ' + driver.last_name).trim() : '?';
+  const initials = dname.split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,2);
+  const rating = driver?.rating ? '★ '+Number(driver.rating).toFixed(1) : '';
+  const lugage = trip.luggage_included ? '<span class="tag ty2">🎒 Bagage</span>' : '';
+  const vehic  = trip.vehicle_type ? `<span class="tag tb2">🚗 ${trip.vehicle_type}</span>` : '';
+  const seatsClass = seats <= 2 ? 'low' : '';
 
-function updateResultsTitle(from, to) {
-  const t = from && to ? from+' → '+to : from || to || 'Tous les trajets';
-  document.getElementById('results-title').textContent = t;
-}
-
-function quickSearch(from, to) {
-  document.getElementById('search-from').value = from;
-  document.getElementById('search-to').value = to;
-  document.getElementById('r-from').value = from;
-  document.getElementById('r-to').value = to;
-  updateResultsTitle(from, to);
-  showPage('search');
-}
-
-function toggleSearch() {
-  const from = document.getElementById('search-from');
-  from.focus();
-  if(document.getElementById('page-home').classList.contains('active')) {
-    window.scrollTo({top:0,behavior:'smooth'});
+  let avatarHtml = '';
+  if(driver?.photo) {
+    avatarHtml = `<div class="tr-avatar"><img src="${driver.photo}" alt="${dname}" onerror="this.parentElement.innerHTML='${initials}'"/></div>`;
   } else {
-    showPage('home');
-    setTimeout(()=>from.focus(), 300);
+    avatarHtml = `<div class="tr-avatar">${initials}</div>`;
+  }
+
+  return `
+    <div class="trip-row" onclick="${onclick_fn}">
+      <div class="tr-time">
+        <div class="th">${dep}</div>
+        <div class="td">${trip.departure_date || 'Auj.'}</div>
+      </div>
+      <div class="tr-div"></div>
+      <div class="tr-route">
+        <div class="tr-cities">
+          <span>${from}</span>
+          <span class="sep">→</span>
+          <span class="arr">${to}</span>
+        </div>
+        <div class="tr-tags">
+          <span class="tag tg">✓ Vérifié</span>
+          ${vehic}${lugage}
+        </div>
+      </div>
+      <div class="tr-driver">
+        ${avatarHtml}
+        <div class="tr-dname">${dname.split(' ')[0]}</div>
+        ${rating ? `<div class="tr-stars">${rating}</div>` : ''}
+      </div>
+      <div class="tr-price">
+        <div class="amt">${Number(price).toLocaleString('fr')}</div>
+        <div class="unit">FCFA / place</div>
+        <div class="seats ${seatsClass}">${seats} place${seats>1?'s':''} dispo</div>
+      </div>
+    </div>
+  `;
+}
+
+// ── CHARGER LES TRAJETS (PAGE HOME) ─────────
+async function loadHomeTrips() {
+  const container = document.getElementById('home-trips-list');
+  try {
+    const res = await fetch(`${API_BASE}/user/trips?passengers=1&limit=5`);
+    const data = await res.json();
+    if(data.success && data.data && data.data.length > 0) {
+      container.innerHTML = data.data.slice(0,5).map(trip => {
+        const from = trip.departure || trip.pickup_address || '';
+        const to   = trip.destination || trip.dropoff_address || '';
+        const dep  = trip.departure_time?.slice(0,5) || '—';
+        const arr  = trip.arrival_time?.slice(0,5) || '—';
+        const price = trip.price_per_seat || trip.amount || 0;
+        const fn = `showBooking('${from}','${to}','${dep}','${arr}','${Number(price).toLocaleString('fr')}')`;
+        return renderTripRow(trip, fn);
+      }).join('');
+      animateRows(container);
+    } else {
+      renderFallbackTrips(container);
+    }
+  } catch(e) {
+    renderFallbackTrips(container);
   }
 }
 
-function filterResults() {
-  const from = document.getElementById('r-from').value.trim().toLowerCase();
-  const to = document.getElementById('r-to').value.trim().toLowerCase();
-  updateResultsTitle(document.getElementById('r-from').value, document.getElementById('r-to').value);
-  const rows = document.querySelectorAll('#results-list .trip-row');
-  let visible = 0;
-  rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    const match = (!from || text.includes(from)) && (!to || text.includes(to));
-    row.style.display = match ? '' : 'none';
-    if(match) visible++;
-  });
-  document.getElementById('results-count').textContent = visible+' trajet'+(visible>1?'s':'')+' trouvé'+(visible>1?'s':'');
+function renderFallbackTrips(container) {
+  const fallback = [
+    { departure:'Brazzaville', destination:'Pointe-Noire', departure_time:'06:30', arrival_time:'12:30', price_per_seat:8500, available_seats:3, vehicle_type:'Bus', luggage_included:1, driver:{name:'Jean K.',rating:'4.9'} },
+    { departure:'Pointe-Noire', destination:'Dolisie', departure_time:'08:00', arrival_time:'11:00', price_per_seat:4500, available_seats:2, vehicle_type:'SUV', luggage_included:0, driver:{name:'Amina M.',rating:'4.7'} },
+    { departure:'Douala', destination:'Yaoundé', departure_time:'14:00', arrival_time:'17:00', price_per_seat:5000, available_seats:4, luggage_included:1, driver:{name:'Paul B.',rating:'5.0'} },
+    { departure:'Libreville', destination:'Port-Gentil', departure_time:'07:30', arrival_time:'11:30', price_per_seat:6200, available_seats:5, vehicle_type:'Minibus', luggage_included:1, driver:{name:'Sophie N.',rating:'4.8'} },
+  ];
+  container.innerHTML = fallback.map(trip => {
+    const fn = `showBooking('${trip.departure}','${trip.destination}','${trip.departure_time}','${trip.arrival_time}','${Number(trip.price_per_seat).toLocaleString('fr')}')`;
+    return renderTripRow(trip, fn);
+  }).join('');
+  animateRows(container);
 }
 
+// ── CHARGER LES RÉSULTATS (PAGE SEARCH) ─────
+async function loadSearchResults() {
+  const from = document.getElementById('r-from').value.trim();
+  const to   = document.getElementById('r-to').value.trim();
+  const date = document.getElementById('r-date').value;
+  const passengers = document.getElementById('r-pax').value;
+  const container = document.getElementById('results-list');
+  const countEl   = document.getElementById('results-count');
+
+  const t = from && to ? from+' → '+to : from || to || 'Tous les trajets';
+  document.getElementById('results-title').textContent = t;
+  container.innerHTML = '<div class="trips-loader"><i class="fas fa-circle-notch"></i>Recherche en cours…</div>';
+
+  const params = new URLSearchParams();
+  if(from) params.set('departure', from);
+  if(to)   params.set('destination', to);
+  if(date) params.set('date', date);
+  if(passengers) params.set('passengers', passengers);
+
+  try {
+    const res = await fetch(`${API_BASE}/user/trips?${params}`);
+    const data = await res.json();
+    if(data.success && data.data && data.data.length > 0) {
+      countEl.textContent = data.count + ' trajet' + (data.count>1?'s':'') + ' trouvé'+(data.count>1?'s':'');
+      container.innerHTML = data.data.map(trip => {
+        const f  = trip.departure || trip.pickup_address || '';
+        const t2 = trip.destination || trip.dropoff_address || '';
+        const d  = trip.departure_time?.slice(0,5) || '—';
+        const a  = trip.arrival_time?.slice(0,5) || '—';
+        const p  = trip.price_per_seat || trip.amount || 0;
+        return renderTripRow(trip, `showBooking('${f}','${t2}','${d}','${a}','${Number(p).toLocaleString('fr')}')`);
+      }).join('');
+      animateRows(container);
+    } else {
+      countEl.textContent = '0 trajet trouvé';
+      container.innerHTML = `
+        <div class="trips-empty">
+          <i class="fas fa-search"></i>
+          <strong>Aucun trajet trouvé</strong>
+          <p style="margin-top:8px;font-size:0.85rem;">Essayez d'autres villes ou une autre date</p>
+        </div>`;
+    }
+  } catch(e) {
+    countEl.textContent = 'Hors ligne';
+    container.innerHTML = `
+      <div class="trips-empty">
+        <i class="fas fa-wifi"></i>
+        <strong>Connexion impossible</strong>
+        <p style="margin-top:8px;font-size:0.85rem;">Vérifiez votre connexion internet</p>
+      </div>`;
+  }
+}
+
+function animateRows(container) {
+  container.querySelectorAll('.trip-row').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(10px)';
+    el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    setTimeout(() => { el.style.opacity='1'; el.style.transform='translateY(0)'; }, i * 60);
+  });
+}
+
+// ── SEARCH ───────────────────────────────────
+function doSearch() {
+  const from = document.getElementById('search-from').value.trim();
+  const to   = document.getElementById('search-to').value.trim();
+  const date = document.getElementById('search-date').value;
+  if(!from && !to) { alert('Veuillez entrer une ville de départ ou de destination'); return; }
+  document.getElementById('r-from').value = from;
+  document.getElementById('r-to').value   = to;
+  document.getElementById('r-date').value = date;
+  showPage('search');
+}
+function quickSearch(from, to) {
+  document.getElementById('search-from').value = from;
+  document.getElementById('search-to').value   = to;
+  document.getElementById('r-from').value = from;
+  document.getElementById('r-to').value   = to;
+  showPage('search');
+}
+function toggleSearch() {
+  if(document.getElementById('page-home').classList.contains('active')) {
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(() => document.getElementById('search-from').focus(), 400);
+  } else {
+    showPage('home');
+    setTimeout(() => document.getElementById('search-from').focus(), 300);
+  }
+}
 function setFilter(btn, filter) {
   document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
-  const rows = document.querySelectorAll('#results-list .trip-row');
-  rows.forEach(row => {
-    const tags = row.getAttribute('data-tags') || '';
-    row.style.display = filter==='all' || tags.includes(filter) ? '' : 'none';
+  document.querySelectorAll('#results-list .trip-row').forEach(row => {
+    const text = row.textContent.toLowerCase();
+    const show = filter==='all'
+      || (filter==='bus' && text.includes('bus'))
+      || (filter==='cov' && (text.includes('suv') || text.includes('cov')))
+      || (filter==='clim' && text.includes('clim'))
+      || (filter==='verifie');
+    row.style.display = show ? '' : 'none';
   });
 }
 
-// ── BOOKING ─────────────────────────
+// ── BOOKING ──────────────────────────────────
 function showBooking(from, to, dep, arr, price) {
   document.getElementById('booking-title').textContent = 'Réserver : '+from+' → '+to;
-  document.getElementById('sum-route').textContent = from+' → '+to;
-  document.getElementById('sum-depart').textContent = dep;
+  document.getElementById('sum-route').textContent   = from+' → '+to;
+  document.getElementById('sum-depart').textContent  = dep;
   document.getElementById('sum-arrivee').textContent = arr;
-  document.getElementById('sum-price').textContent = price+' FCFA';
-  document.getElementById('sum-total').textContent = price+' FCFA';
+  document.getElementById('sum-price').textContent   = price+' FCFA';
+  document.getElementById('sum-total').textContent   = price+' FCFA';
   showPage('booking');
 }
-
 function selectPayment(el) {
   document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
   el.classList.add('selected');
 }
-
 function confirmBooking() {
-  const phone = document.getElementById('mtn-number').value;
   alert('✅ Réservation confirmée !\n\nVotre billet a été envoyé par SMS.\nBon voyage avec TopTopGo ! 🚌');
   showPage('home');
 }
 
-// ── DATE PAR DÉFAUT ──────────────────
-const today = new Date();
-const todayStr = today.toISOString().split('T')[0];
+// ── DATE PAR DÉFAUT ──────────────────────────
+const todayStr = new Date().toISOString().split('T')[0];
 document.getElementById('search-date').value = todayStr;
 document.getElementById('r-date').value = todayStr;
 
-// ── CHATBOT BASILE ───────────────────
-let basileOpen = false;
-let chatHistory = [];
+// ── CHATBOT KLOE ZONI ────────────────────────
+let kloeOpen = false;
+let kloeChatHistory = [];
 
-function toggleBasile() {
-  basileOpen = !basileOpen;
-  const win = document.getElementById('basile-window');
-  if(basileOpen) { win.classList.remove('hidden'); setTimeout(()=>document.getElementById('basile-input').focus(),100); document.querySelector('#basile-btn .notif-dot').style.display='none'; }
-  else win.classList.add('hidden');
+function toggleKloe() {
+  kloeOpen = !kloeOpen;
+  const win = document.getElementById('kloe-window');
+  if(kloeOpen) {
+    win.classList.remove('hidden');
+    setTimeout(() => document.getElementById('kloe-input').focus(), 100);
+    document.querySelector('#kloe-btn .notif-dot').style.display = 'none';
+  } else {
+    win.classList.add('hidden');
+  }
 }
 
-function handleKey(e) { if(e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
-
-function quickSend(btn) {
-  document.getElementById('basile-input').value = btn.textContent.trim().replace(/^[^ ]+ /,'');
-  document.getElementById('basile-sugg').style.display='none';
-  sendMessage();
+function kloeKey(e) {
+  if(e.key==='Enter' && !e.shiftKey) { e.preventDefault(); kloeSendMsg(); }
+}
+function kloeSend(btn) {
+  document.getElementById('kloe-input').value = btn.textContent.trim().replace(/^[^\s]+ /,'');
+  document.getElementById('kloe-sugg').style.display = 'none';
+  kloeSendMsg();
 }
 
-function addMsg(text, role) {
-  const msgs = document.getElementById('basile-msgs');
+function kloeAddMsg(text, role) {
+  const msgs = document.getElementById('kloe-msgs');
   const div = document.createElement('div');
-  div.className = 'bmsg '+role;
+  div.className = 'kmsg ' + role;
   div.innerHTML = text;
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
-  return div;
 }
 
-function showTyping() {
-  const msgs = document.getElementById('basile-msgs');
-  const div = document.createElement('div');
-  div.className='bmsg bot typing'; div.id='btyping';
-  div.innerHTML='<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-  msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
+function kloeTyping(show) {
+  const existing = document.getElementById('ktyping');
+  if(show && !existing) {
+    const div = document.createElement('div');
+    div.className = 'kmsg bot typing'; div.id = 'ktyping';
+    div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    document.getElementById('kloe-msgs').appendChild(div);
+    document.getElementById('kloe-msgs').scrollTop = 9999;
+  } else if(!show && existing) {
+    existing.remove();
+  }
 }
-function hideTyping() { const t=document.getElementById('btyping'); if(t)t.remove(); }
 
-async function sendMessage() {
-  const input = document.getElementById('basile-input');
+async function kloeSendMsg() {
+  const input = document.getElementById('kloe-input');
   const text = input.value.trim();
   if(!text) return;
-  input.value=''; input.style.height='auto';
-  addMsg(text,'user');
-  chatHistory.push({role:'user',content:text});
-  showTyping();
-  setTimeout(() => {
-    hideTyping();
-    const reponses = {
-      'trajet': '🔍 Pour trouver un trajet, utilisez la barre de recherche en haut ! Entrez votre ville de départ, destination et date. Je peux aussi vous rediriger vers les résultats.',
-      'tarif': '💰 Les tarifs varient selon le trajet : Brazzaville→Pointe-Noire dès 8 000 FCFA, Douala→Yaoundé dès 5 000 FCFA. Paiement MTN, Airtel ou Peex accepté !',
-      'conducteur': '🚗 Pour devenir conducteur, cliquez sur "Proposer un trajet". Vous pouvez gagner jusqu\'à 120 000 FCFA/mois en partageant vos déplacements !',
-      'app': '📱 L\'application TopTopGo est disponible sur App Store et Google Play. Elle fonctionne même avec une connexion faible !',
-      'brazzaville': '🏙️ Brazzaville est notre ville la plus active ! De nombreux trajets partent chaque jour vers Pointe-Noire, Dolisie et plus encore.',
-      'libreville': '🌊 Libreville au Gabon est bien desservie ! Trajets vers Port-Gentil disponibles quotidiennement.',
-    };
-    let rep = '😊 Je suis Basile, votre assistant TopTopGo ! Je peux vous aider sur : les trajets 🔍, les tarifs 💰, devenir conducteur 🚗 ou télécharger l\'app 📱 !';
-    const tl = text.toLowerCase();
-    if(tl.includes('trajet')||tl.includes('voyage')||tl.includes('aller')) rep=reponses.trajet;
-    else if(tl.includes('prix')||tl.includes('tarif')||tl.includes('fcfa')) rep=reponses.tarif;
-    else if(tl.includes('conducteur')||tl.includes('chauffeur')) rep=reponses.conducteur;
-    else if(tl.includes('app')||tl.includes('appli')) rep=reponses.app;
-    else if(tl.includes('brazzaville')) rep=reponses.brazzaville;
-    else if(tl.includes('libreville')) rep=reponses.libreville;
-    addMsg(rep,'bot');
-  }, 1000);
+  input.value = ''; input.style.height = 'auto';
+
+  kloeAddMsg(text, 'user');
+  kloeChatHistory.push({ role:'user', content:text });
+  kloeTyping(true);
+
+  // Réponses locales intelligentes (pas d'API nécessaire)
+  await new Promise(r => setTimeout(r, 900 + Math.random()*500));
+  kloeTyping(false);
+
+  const tl = text.toLowerCase();
+  let rep = '';
+
+  if(tl.includes('trajet') || tl.includes('voyage') || tl.includes('aller') || tl.includes('partir')) {
+    rep = '🔍 Pour trouver un trajet, entrez votre ville de départ et destination dans la barre de recherche ! Ou dites-moi où vous allez et je vous aide à trouver les meilleures options.';
+  } else if(tl.includes('prix') || tl.includes('tarif') || tl.includes('combien') || tl.includes('fcfa') || tl.includes('coût')) {
+    rep = '💰 Les tarifs TopTopGo :<br/>• <b>Brazzaville → Pointe-Noire</b> : dès 8 000 FCFA<br/>• <b>Douala → Yaoundé</b> : dès 5 000 FCFA<br/>• <b>Libreville → Port-Gentil</b> : dès 6 000 FCFA<br/><br/>Paiement MTN, Airtel ou carte bancaire !';
+  } else if(tl.includes('conducteur') || tl.includes('chauffeur') || tl.includes('proposer') || tl.includes('gagner')) {
+    rep = '🚗 Pour devenir conducteur, cliquez sur <b>"Proposer un trajet"</b> dans le menu. Vous pouvez gagner jusqu\'à <b>120 000 FCFA/mois</b> en partageant vos trajets !';
+  } else if(tl.includes('app') || tl.includes('appli') || tl.includes('télécharger') || tl.includes('mobile')) {
+    rep = '📱 L\'application TopTopGo est disponible sur <b>App Store</b> et <b>Google Play</b>. Elle fonctionne même avec une connexion limitée. Cherchez "TopTopGo" !';
+  } else if(tl.includes('brazzaville')) {
+    rep = '🏙️ Brazzaville est notre ville la plus active ! Des trajets partent chaque jour vers Pointe-Noire, Dolisie, Kindamba et bien plus. Quelle est votre destination ?';
+  } else if(tl.includes('pointe') || tl.includes('noire')) {
+    rep = '🌊 Pointe-Noire est très bien desservie ! Liaisons quotidiennes avec Brazzaville, Dolisie. Voulez-vous réserver un trajet ?';
+  } else if(tl.includes('paiement') || tl.includes('mtn') || tl.includes('airtel') || tl.includes('money')) {
+    rep = '💳 TopTopGo accepte :<br/>• MTN Mobile Money<br/>• Airtel Money<br/>• Carte bancaire VISA/Mastercard<br/>• Peex / Exchange<br/><br/>Le paiement est 100% sécurisé !';
+  } else if(tl.includes('kloe') || tl.includes('qui') || tl.includes('toi') || tl.includes('vous êtes')) {
+    rep = '👋 Je suis <b>Kloe Zoni</b>, votre assistante virtuelle TopTopGo ! Je suis là pour vous aider à trouver des trajets, répondre à vos questions sur les tarifs, le paiement, ou comment devenir conducteur.';
+  } else if(tl.includes('merci') || tl.includes('super') || tl.includes('parfait') || tl.includes('ok')) {
+    rep = '😊 Avec plaisir ! N\'hésitez pas si vous avez d\'autres questions. Bon voyage avec TopTopGo ! 🚌';
+  } else if(tl.includes('annuler') || tl.includes('remboursement')) {
+    rep = '↩️ Pour annuler une réservation, rendez-vous dans l\'app TopTopGo → Mes trajets → Annuler. L\'annulation est <b>gratuite jusqu\'à 24h</b> avant le départ. Remboursement en 2-3 jours ouvrés.';
+  } else {
+    rep = `Je comprends votre question sur « ${text} ». Je peux vous aider sur :<br/>🔍 <b>Trouver un trajet</b> · 💰 <b>Tarifs</b> · 🚗 <b>Devenir conducteur</b> · 📱 <b>L'application</b><br/><br/>Que souhaitez-vous savoir ?`;
+  }
+
+  kloeAddMsg(rep, 'bot');
+  kloeChatHistory.push({ role:'assistant', content:rep });
 }
 
-document.getElementById('basile-input').addEventListener('input', function() {
-  this.style.height='auto';
-  this.style.height=Math.min(this.scrollHeight,80)+'px';
+document.getElementById('kloe-input').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 80) + 'px';
 });
 
-// ── SCROLL ANIMATIONS ───────────────
+// ── ANIMATIONS AU SCROLL ─────────────────────
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';} });
-},{threshold:0.06});
-document.querySelectorAll('.dest-card,.trip-row,.tcard,.how-card,.pchip,.route-img-card').forEach(el=>{
-  el.style.opacity='0'; el.style.transform='translateY(14px)'; el.style.transition='opacity 0.4s ease, transform 0.4s ease';
+  entries.forEach(e => {
+    if(e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+  });
+}, { threshold:0.06 });
+document.querySelectorAll('.dest-card,.tcard,.how-card,.pchip').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(14px)';
+  el.style.transition='opacity 0.4s ease, transform 0.4s ease';
   obs.observe(el);
 });
+
+// ── CHARGEMENT INITIAL ───────────────────────
+loadHomeTrips();
 </script>
 </body>
 </html>
