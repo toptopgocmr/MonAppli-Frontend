@@ -6,6 +6,7 @@
   <title>TopTopGo – Covoiturage & Bus en Afrique Centrale</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23001E3C'/><text x='32' y='26' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-size='14' fill='%2300AAFF'>Top</text><text x='32' y='44' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-size='14' fill='%23FFB800'>Go</text></svg>"/>
   <style>
     :root {
       --blue: #00AAFF;
@@ -128,56 +129,194 @@
     }
     .search-card {
       background:#fff;
-      border-radius:20px 20px 0 0;
+      border-radius:24px 24px 0 0;
       border:1px solid var(--border);
       border-bottom:none;
-      box-shadow:0 -8px 40px rgba(0,30,60,0.09);
-      padding:20px 20px 0;
+      box-shadow:0 -12px 48px rgba(0,30,60,0.12);
+      padding:24px 24px 0;
     }
     .search-bar {
       display:flex; align-items:stretch;
       background:#fff;
-      border:2px solid var(--border);
+      border:1.5px solid #DDE3EB;
       border-radius:100px;
-      height:64px;
+      height:72px;
       overflow:hidden;
       transition:border-color 0.2s, box-shadow 0.2s;
+      box-shadow:0 2px 12px rgba(0,30,60,0.06);
     }
     .search-bar:focus-within {
       border-color:var(--blue);
-      box-shadow:0 0 0 4px rgba(0,170,255,0.12);
+      box-shadow:0 0 0 4px rgba(0,170,255,0.10), 0 4px 20px rgba(0,30,60,0.08);
     }
     .sf {
-      flex:1; display:flex; align-items:center; gap:10px;
-      padding:0 22px; border-right:1px solid var(--border);
+      flex:1; display:flex; align-items:center; gap:12px;
+      padding:0 24px; border-right:1.5px solid #EDF0F4;
       cursor:text; transition:background 0.12s; min-width:0;
+      position:relative;
     }
     .sf:last-of-type { border-right:none; }
-    .sf:hover { background:var(--bg); }
-    .sf-icon { color:var(--blue); font-size:0.78rem; flex-shrink:0; }
+    .sf:hover { background:#F8FAFC; }
+    .sf-icon {
+      color:var(--blue); font-size:0.85rem; flex-shrink:0;
+      width:30px; height:30px; border-radius:50%;
+      background:rgba(0,170,255,0.09);
+      display:flex; align-items:center; justify-content:center;
+    }
     .sf-content { display:flex; flex-direction:column; min-width:0; }
-    .sf-label { font-size:0.66rem; color:var(--text-soft); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+    .sf-label {
+      font-size:0.62rem; color:var(--text-soft); font-weight:800;
+      text-transform:uppercase; letter-spacing:0.8px; margin-bottom:2px;
+    }
     .sf input {
       border:none; outline:none; background:transparent;
-      font-family:inherit; font-size:0.9rem; color:var(--text);
+      font-family:inherit; font-size:0.93rem; color:var(--text);
       font-weight:700; padding:0; width:100%;
     }
-    .sf input::placeholder { color:var(--text-soft); font-weight:500; }
-    .sf-pass-main { font-size:0.9rem; font-weight:700; color:var(--text); }
+    .sf input::placeholder { color:#B0BCCC; font-weight:500; }
+    .sf-pass-main { font-size:0.93rem; font-weight:700; color:var(--text); }
     .sf-pass-sub  { font-size:0.69rem; color:var(--text-soft); }
     .btn-search {
-      background:var(--blue); color:#fff; border:none;
-      padding:0 32px; border-radius:0 100px 100px 0;
+      background:linear-gradient(135deg, var(--blue) 0%, #0088DD 100%);
+      color:#fff; border:none;
+      padding:0 36px; border-radius:0 100px 100px 0;
       font-family:inherit; font-weight:800; font-size:0.92rem;
-      cursor:pointer; transition:background 0.15s; flex-shrink:0;
-      display:flex; align-items:center; gap:9px; letter-spacing:0.2px;
+      cursor:pointer; transition:all 0.2s; flex-shrink:0;
+      display:flex; align-items:center; gap:10px; letter-spacing:0.3px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.15);
     }
-    .btn-search:hover { background:var(--blue-dark); }
+    .btn-search:hover {
+      background:linear-gradient(135deg, #0088DD 0%, var(--blue-dark) 100%);
+      transform:translateX(1px);
+    }
+    .btn-search i { font-size:0.85rem; }
     .search-footer {
       display:flex; align-items:center; gap:8px;
-      padding:12px 4px 16px; color:var(--text-soft); font-size:0.82rem;
+      padding:14px 4px 18px; color:var(--text-soft); font-size:0.82rem;
     }
     .search-footer input { accent-color:var(--blue); width:15px; height:15px; }
+
+    /* ── CHATBOT BASILE ─────────────────────────── */
+    #basile-btn {
+      position:fixed; bottom:28px; right:28px; z-index:9999;
+      width:58px; height:58px; border-radius:50%;
+      background:linear-gradient(135deg,var(--blue) 0%,var(--navy) 100%);
+      border:none; cursor:pointer; box-shadow:0 6px 24px rgba(0,30,60,0.28);
+      display:flex; align-items:center; justify-content:center;
+      transition:transform 0.2s, box-shadow 0.2s;
+      color:#fff; font-size:1.3rem;
+    }
+    #basile-btn:hover { transform:scale(1.08); box-shadow:0 8px 32px rgba(0,170,255,0.35); }
+    #basile-btn .notif-dot {
+      position:absolute; top:4px; right:4px;
+      width:11px; height:11px; border-radius:50%;
+      background:#FFB800; border:2px solid #fff;
+      animation:pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { transform:scale(1); }
+      50% { transform:scale(1.25); }
+    }
+    #basile-window {
+      position:fixed; bottom:100px; right:28px; z-index:9998;
+      width:360px; height:520px;
+      background:#fff; border-radius:20px;
+      box-shadow:0 20px 60px rgba(0,30,60,0.2);
+      display:flex; flex-direction:column;
+      overflow:hidden; border:1px solid var(--border);
+      transition:opacity 0.25s, transform 0.25s;
+      transform-origin:bottom right;
+    }
+    #basile-window.hidden {
+      opacity:0; pointer-events:none; transform:scale(0.85);
+    }
+    .basile-header {
+      background:linear-gradient(135deg,var(--blue) 0%,var(--navy) 100%);
+      padding:16px 20px; display:flex; align-items:center; gap:12px;
+      flex-shrink:0;
+    }
+    .basile-avatar {
+      width:40px; height:40px; border-radius:50%;
+      background:rgba(255,255,255,0.15);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.2rem; border:2px solid rgba(255,255,255,0.25);
+    }
+    .basile-info { flex:1; }
+    .basile-name { color:#fff; font-weight:800; font-size:0.95rem; }
+    .basile-status { color:rgba(255,255,255,0.7); font-size:0.72rem; display:flex; align-items:center; gap:5px; }
+    .basile-status::before {
+      content:''; width:7px; height:7px; border-radius:50%;
+      background:#4ade80; display:inline-block;
+    }
+    .basile-close {
+      background:rgba(255,255,255,0.15); border:none; color:#fff;
+      width:30px; height:30px; border-radius:50%; cursor:pointer;
+      font-size:0.85rem; display:flex; align-items:center; justify-content:center;
+      transition:background 0.15s;
+    }
+    .basile-close:hover { background:rgba(255,255,255,0.25); }
+    .basile-messages {
+      flex:1; overflow-y:auto; padding:16px;
+      display:flex; flex-direction:column; gap:12px;
+      background:#F8FAFC;
+    }
+    .basile-messages::-webkit-scrollbar { width:4px; }
+    .basile-messages::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+    .bmsg {
+      max-width:82%; padding:10px 14px; border-radius:16px;
+      font-size:0.84rem; line-height:1.55; font-weight:500;
+    }
+    .bmsg.bot {
+      background:#fff; color:var(--text); border:1px solid var(--border);
+      border-bottom-left-radius:4px; align-self:flex-start;
+      box-shadow:0 1px 4px rgba(0,30,60,0.06);
+    }
+    .bmsg.user {
+      background:linear-gradient(135deg,var(--blue),#0088DD);
+      color:#fff; border-bottom-right-radius:4px; align-self:flex-end;
+    }
+    .bmsg.typing {
+      display:flex; gap:5px; align-items:center; padding:12px 14px;
+    }
+    .typing-dot {
+      width:7px; height:7px; border-radius:50%; background:#B0BCCC;
+      animation:typing-bounce 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay:0.2s; }
+    .typing-dot:nth-child(3) { animation-delay:0.4s; }
+    @keyframes typing-bounce {
+      0%,60%,100% { transform:translateY(0); }
+      30% { transform:translateY(-6px); }
+    }
+    .basile-input-row {
+      display:flex; gap:8px; padding:14px 16px;
+      border-top:1px solid var(--border); background:#fff; flex-shrink:0;
+    }
+    #basile-input {
+      flex:1; border:1.5px solid var(--border); border-radius:24px;
+      padding:9px 16px; font-family:inherit; font-size:0.84rem;
+      outline:none; transition:border-color 0.15s; color:var(--text);
+      resize:none; min-height:38px; max-height:80px;
+    }
+    #basile-input:focus { border-color:var(--blue); }
+    #basile-send {
+      width:38px; height:38px; border-radius:50%; flex-shrink:0;
+      background:var(--blue); border:none; color:#fff;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:background 0.15s; font-size:0.85rem;
+    }
+    #basile-send:hover { background:var(--blue-dark); }
+    .basile-suggestions {
+      display:flex; flex-wrap:wrap; gap:6px; padding:0 16px 12px;
+      background:#fff; flex-shrink:0;
+    }
+    .bsugg {
+      font-size:0.72rem; padding:5px 12px; border-radius:20px;
+      border:1.5px solid var(--blue); color:var(--blue);
+      background:var(--blue-pale); cursor:pointer; font-weight:700;
+      transition:all 0.15s;
+    }
+    .bsugg:hover { background:var(--blue); color:#fff; }
 
     /* ── SECTION COMMONS ──────────────────────── */
     .section-wrap { padding:72px max(32px, calc((100vw - var(--max-w))/2)); }
@@ -470,7 +609,13 @@
       <button class="nav-icon-btn"><i class="fas fa-search"></i></button>
       <a href="#" class="btn-nav-outline">Connexion</a>
       <a href="#" class="btn-nav-primary">Proposer un trajet</a>
-      <div class="flag-btn" title="Congo Brazzaville">🇨🇬</div>
+      <div class="flag-btn" title="Congo Brazzaville">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 15" width="22" height="16" style="border-radius:2px;display:block;">
+          <rect width="20" height="15" fill="#009543"/>
+          <polygon points="0,0 20,15 0,15" fill="#FBDE4A"/>
+          <polygon points="0,0 20,0 20,15" fill="#DC241F"/>
+        </svg>
+      </div>
     </div>
   </div>
 </nav>
@@ -544,14 +689,14 @@
     <a href="#" class="see-all">Voir tout <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i></a>
   </div>
   <div class="dest-grid">
-    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=600&q=80" alt="Brazzaville"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Brazzaville</span><div class="dline"></div><div class="ddot"></div><span>Pointe-Noire</span></div><div class="dest-price">À partir de 8 000 FCFA</div><div class="dest-meta">42 trajets · 6h de route</div></div></a>
-    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&q=80" alt="Douala"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Douala</span><div class="dline"></div><div class="ddot"></div><span>Yaoundé</span></div><div class="dest-price">À partir de 5 000 FCFA</div><div class="dest-meta">61 trajets · 3h de route</div></div></a>
-    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?w=600&q=80" alt="Libreville"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Libreville</span><div class="dline"></div><div class="ddot"></div><span>Port-Gentil</span></div><div class="dest-price">À partir de 6 000 FCFA</div><div class="dest-meta">35 trajets · 4h de route</div></div></a>
-    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1504019347908-b45f9b0b8dd5?w=600&q=80" alt="Kinshasa"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Kinshasa</span><div class="dline"></div><div class="ddot"></div><span>Lubumbashi</span></div><div class="dest-price">À partir de 15 000 FCFA</div><div class="dest-meta">19 trajets · Bus</div></div></a>
-    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600&q=80" alt="Pointe-Noire"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Pointe-Noire</span><div class="dline"></div><div class="ddot"></div><span>Dolisie</span></div><div class="dest-price">À partir de 4 500 FCFA</div><div class="dest-meta">28 trajets · 3h de route</div></div></a>
-    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1597392582469-a697322d5c16?w=600&q=80" alt="N'Djamena"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>N'Djamena</span><div class="dline"></div><div class="ddot"></div><span>Moundou</span></div><div class="dest-price">À partir de 9 000 FCFA</div><div class="dest-meta">8 trajets · Bus</div></div></a>
-    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1548813395-e5a1e4f27d85?w=600&q=80" alt="Bangui"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Bangui</span><div class="dline"></div><div class="ddot"></div><span>Bouar</span></div><div class="dest-price">À partir de 7 500 FCFA</div><div class="dest-meta">11 trajets · 5h de route</div></div></a>
-    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80" alt="Malabo"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Malabo</span><div class="dline"></div><div class="ddot"></div><span>Bata</span></div><div class="dest-price">À partir de 3 500 FCFA</div><div class="dest-meta">16 trajets · 2h de route</div></div></a>
+    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1599423423444-8b1b6f4e8a22?w=600&q=80" alt="Brazzaville"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Brazzaville</span><div class="dline"></div><div class="ddot"></div><span>Pointe-Noire</span></div><div class="dest-price">À partir de 8 000 FCFA</div><div class="dest-meta">42 trajets · 6h de route</div></div></a>
+    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=600&q=80" alt="Douala"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Douala</span><div class="dline"></div><div class="ddot"></div><span>Yaoundé</span></div><div class="dest-price">À partir de 5 000 FCFA</div><div class="dest-meta">61 trajets · 3h de route</div></div></a>
+    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1614531341773-3bff15b7f2d7?w=600&q=80" alt="Libreville"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Libreville</span><div class="dline"></div><div class="ddot"></div><span>Port-Gentil</span></div><div class="dest-price">À partir de 6 000 FCFA</div><div class="dest-meta">35 trajets · 4h de route</div></div></a>
+    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600&q=80" alt="Kinshasa"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Kinshasa</span><div class="dline"></div><div class="ddot"></div><span>Lubumbashi</span></div><div class="dest-price">À partir de 15 000 FCFA</div><div class="dest-meta">19 trajets · Bus</div></div></a>
+    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1582560475093-ba66accbc424?w=600&q=80" alt="Pointe-Noire"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Pointe-Noire</span><div class="dline"></div><div class="ddot"></div><span>Dolisie</span></div><div class="dest-price">À partir de 4 500 FCFA</div><div class="dest-meta">28 trajets · 3h de route</div></div></a>
+    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=600&q=80" alt="N'Djamena"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>N'Djamena</span><div class="dline"></div><div class="ddot"></div><span>Moundou</span></div><div class="dest-price">À partir de 9 000 FCFA</div><div class="dest-meta">8 trajets · Bus</div></div></a>
+    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600&q=80" alt="Bangui"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Bangui</span><div class="dline"></div><div class="ddot"></div><span>Bouar</span></div><div class="dest-price">À partir de 7 500 FCFA</div><div class="dest-meta">11 trajets · 5h de route</div></div></a>
+    <a class="dest-card" href="#"><div class="dest-img-wrap"><img class="dest-img" src="https://images.unsplash.com/photo-1568402102990-bc541580b59f?w=600&q=80" alt="Malabo"/><div class="dest-overlay"></div></div><div class="dest-body"><div class="dest-route"><div class="ddot d"></div><span>Malabo</span><div class="dline"></div><div class="ddot"></div><span>Bata</span></div><div class="dest-price">À partir de 3 500 FCFA</div><div class="dest-meta">16 trajets · 2h de route</div></div></a>
   </div>
 </div>
 
@@ -719,6 +864,36 @@
   </div>
 </footer>
 
+<!-- CHATBOT BASILE -->
+<button id="basile-btn" onclick="toggleBasile()" aria-label="Chat avec Basile">
+  <i class="fas fa-comments"></i>
+  <span class="notif-dot"></span>
+</button>
+
+<div id="basile-window" class="hidden">
+  <div class="basile-header">
+    <div class="basile-avatar">🚌</div>
+    <div class="basile-info">
+      <div class="basile-name">Basile – Assistant TopTopGo</div>
+      <div class="basile-status">En ligne · Répond en quelques secondes</div>
+    </div>
+    <button class="basile-close" onclick="toggleBasile()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="basile-messages" id="basile-msgs">
+    <div class="bmsg bot">👋 Bonjour ! Je suis <strong>Basile</strong>, votre assistant TopTopGo.<br/>Comment puis-je vous aider aujourd'hui ?</div>
+  </div>
+  <div class="basile-suggestions" id="basile-sugg">
+    <button class="bsugg" onclick="quickSend(this)">🔍 Trouver un trajet</button>
+    <button class="bsugg" onclick="quickSend(this)">💰 Tarifs disponibles</button>
+    <button class="bsugg" onclick="quickSend(this)">🚗 Devenir conducteur</button>
+    <button class="bsugg" onclick="quickSend(this)">📱 Télécharger l'app</button>
+  </div>
+  <div class="basile-input-row">
+    <textarea id="basile-input" placeholder="Écrivez votre message…" rows="1" onkeydown="handleKey(event)"></textarea>
+    <button id="basile-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
 <script>
   const d = new Date();
   document.getElementById('df').placeholder = d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'});
@@ -739,6 +914,123 @@
     el.style.transition='opacity 0.4s ease, transform 0.4s ease';
     obs.observe(el);
   });
+
+  // ── BASILE CHATBOT ────────────────────────────────────
+  const GROQ_API_KEY = 'gsk_YOUR_GROQ_API_KEY_HERE'; // Remplacez par votre clé API Groq
+
+  let basileOpen = false;
+  let chatHistory = [];
+
+  const systemPrompt = `Tu es Basile, l'assistant virtuel de TopTopGo, la première plateforme de covoiturage et bus en Afrique Centrale. Tu es chaleureux, serviable et tu parles principalement en français. 
+
+TopTopGo propose des trajets de bus et covoiturage dans 6 pays d'Afrique Centrale : Congo Brazzaville, Cameroun, Gabon, RDC, Tchad et République Centrafricaine. Les paiements sont acceptés en FCFA, MTN Mobile Money, Airtel Money et Peex.
+
+Tu aides les utilisateurs à :
+- Trouver des trajets disponibles
+- Comprendre les tarifs
+- Réserver des places
+- Devenir conducteur
+- Utiliser l'application
+- Résoudre des problèmes
+
+Réponds de façon concise, amicale et pratique. Utilise des emojis pour rendre les réponses plus vivantes. Si quelqu'un demande quelque chose hors du domaine du transport ou de TopTopGo, redirige poliment vers les services de la plateforme.`;
+
+  function toggleBasile() {
+    basileOpen = !basileOpen;
+    const win = document.getElementById('basile-window');
+    const btn = document.getElementById('basile-btn');
+    if (basileOpen) {
+      win.classList.remove('hidden');
+      btn.querySelector('.notif-dot').style.display = 'none';
+      document.getElementById('basile-input').focus();
+    } else {
+      win.classList.add('hidden');
+    }
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  function quickSend(btn) {
+    document.getElementById('basile-input').value = btn.textContent.trim();
+    document.getElementById('basile-sugg').style.display = 'none';
+    sendMessage();
+  }
+
+  function addMsg(text, role) {
+    const msgs = document.getElementById('basile-msgs');
+    const div = document.createElement('div');
+    div.className = 'bmsg ' + role;
+    div.innerHTML = text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+
+  function showTyping() {
+    const msgs = document.getElementById('basile-msgs');
+    const div = document.createElement('div');
+    div.className = 'bmsg bot typing';
+    div.id = 'typing-indicator';
+    div.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function hideTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('basile-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    input.value = '';
+    addMsg(text, 'user');
+    chatHistory.push({ role: 'user', content: text });
+    showTyping();
+
+    try {
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + GROQ_API_KEY
+        },
+        body: JSON.stringify({
+          model: 'llama3-8b-8192',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            ...chatHistory
+          ],
+          temperature: 0.7,
+          max_tokens: 400
+        })
+      });
+
+      const data = await response.json();
+      hideTyping();
+
+      if (data.choices && data.choices[0]) {
+        const reply = data.choices[0].message.content;
+        chatHistory.push({ role: 'assistant', content: reply });
+        const formatted = reply.replace(/\n/g, '<br/>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        addMsg(formatted, 'bot');
+      } else {
+        addMsg('⚠️ Désolé, je rencontre une difficulté. Veuillez réessayer.', 'bot');
+      }
+    } catch (err) {
+      hideTyping();
+      addMsg('⚠️ Connexion impossible. Vérifiez votre clé API Groq dans le code.', 'bot');
+      console.error('Groq API error:', err);
+    }
+  }
 </script>
 </body>
 </html>
