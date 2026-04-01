@@ -196,6 +196,111 @@
     }
     .search-footer input { accent-color:var(--blue); width:15px; height:15px; }
 
+    /* ── SEARCH TABS ─────────────────────────────── */
+    .search-tabs {
+      display:flex; gap:4px; padding:16px 24px 0; border-bottom:1px solid var(--border); margin-bottom:0;
+    }
+    .stab {
+      padding:8px 18px; border:none; background:transparent; cursor:pointer;
+      font-family:inherit; font-size:0.83rem; font-weight:700; color:var(--text-soft);
+      border-radius:8px 8px 0 0; position:relative; transition:all 0.15s;
+    }
+    .stab:hover { color:var(--blue); background:var(--blue-pale); }
+    .stab.active { color:var(--blue); background:#fff; border:1px solid var(--border); border-bottom:2px solid #fff; margin-bottom:-1px; }
+
+    /* ── SWAP BUTTON ─────────────────────────────── */
+    .swap-btn {
+      width:32px; height:32px; border-radius:50%; border:1.5px solid var(--border);
+      background:#fff; color:var(--blue); cursor:pointer; font-size:0.78rem;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      transition:all 0.2s; align-self:center; margin:0 -4px; z-index:5;
+      box-shadow:0 1px 6px rgba(0,30,60,0.08);
+    }
+    .swap-btn:hover { background:var(--blue); color:#fff; transform:rotate(180deg); }
+
+    /* ── CLEAR FIELD BUTTON ──────────────────────── */
+    .sf-clear {
+      border:none; background:transparent; cursor:pointer; padding:4px;
+      color:var(--text-soft); font-size:0.7rem; flex-shrink:0;
+      opacity:0; transition:opacity 0.15s;
+    }
+    .sf:hover .sf-clear[style=""] { opacity:1; }
+
+    /* ── PASSENGERS DROPDOWN ─────────────────────── */
+    .pass-dropdown {
+      position:absolute; bottom:calc(100% + 12px); right:0;
+      background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-lg); padding:20px; min-width:260px; z-index:100;
+    }
+    .pass-row {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 0; border-bottom:1px solid var(--border);
+    }
+    .pass-row:last-of-type { border-bottom:none; }
+    .pass-type { font-weight:700; font-size:0.88rem; color:var(--navy); }
+    .pass-sub { font-size:0.7rem; color:var(--text-soft); margin-top:2px; }
+    .pass-counter { display:flex; align-items:center; gap:14px; }
+    .pass-btn {
+      width:30px; height:30px; border-radius:50%; border:1.5px solid var(--border);
+      background:#fff; color:var(--navy); font-size:1rem; font-weight:700;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:all 0.15s; line-height:1;
+    }
+    .pass-btn:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-pale); }
+    .pass-counter span { font-weight:800; font-size:0.98rem; min-width:18px; text-align:center; }
+    .pass-confirm {
+      width:100%; margin-top:14px; padding:10px; border-radius:50px;
+      background:var(--blue); color:#fff; border:none; font-weight:800;
+      font-size:0.85rem; cursor:pointer; font-family:inherit; transition:background 0.15s;
+    }
+    .pass-confirm:hover { background:var(--blue-dark); }
+
+    /* ── SEARCH TIP ──────────────────────────────── */
+    .search-tip {
+      margin-left:auto; font-size:0.74rem; color:var(--text-soft);
+      display:flex; align-items:center; gap:5px;
+    }
+    .search-tip i { color:var(--blue); }
+
+    /* ── ROUTE IMAGE BANNER ──────────────────────── */
+    .route-banner {
+      padding:0 max(32px, calc((100vw - var(--max-w))/2));
+      background:#fff; padding-top:28px; padding-bottom:40px;
+    }
+    .route-banner-title {
+      font-weight:900; font-size:1.1rem; color:var(--navy);
+      margin-bottom:16px; display:flex; align-items:center; gap:8px;
+    }
+    .route-banner-title i { color:var(--blue); font-size:0.9rem; }
+    .route-imgs {
+      display:grid; grid-template-columns:1fr 1fr; gap:16px;
+    }
+    .route-img-card {
+      border-radius:var(--radius-lg); overflow:hidden; position:relative;
+      height:200px; cursor:pointer; box-shadow:var(--shadow);
+      transition:transform 0.2s, box-shadow 0.2s;
+    }
+    .route-img-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+    .route-img-card img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+    .route-img-card:hover img { transform:scale(1.06); }
+    .route-img-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,10,30,0.72) 0%, rgba(0,10,30,0.1) 60%);
+    }
+    .route-img-info {
+      position:absolute; bottom:0; left:0; right:0; padding:16px 20px;
+      color:#fff;
+    }
+    .route-img-name { font-weight:900; font-size:1.1rem; letter-spacing:-0.3px; }
+    .route-img-meta { font-size:0.74rem; opacity:0.8; margin-top:3px; }
+    .route-img-badge {
+      position:absolute; top:14px; right:14px;
+      background:rgba(255,255,255,0.15); backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,0.25);
+      color:#fff; font-size:0.7rem; font-weight:700; padding:4px 10px; border-radius:20px;
+    }
+    @media(max-width:640px) { .route-imgs { grid-template-columns:1fr; } }
+
     /* ── CHATBOT BASILE ─────────────────────────── */
     #basile-btn {
       position:fixed; bottom:28px; right:28px; z-index:99999;
@@ -637,47 +742,146 @@
 
   <div class="search-wrapper">
     <div class="search-card">
-      <div class="search-bar">
-        <div class="sf">
-          <i class="fas fa-circle sf-icon" style="font-size:0.5rem;"></i>
+      <!-- Tab navigation -->
+      <div class="search-tabs" role="tablist" aria-label="Type de trajet">
+        <button class="stab active" role="tab" aria-selected="true" onclick="switchTab(this,'aller-simple')">Aller simple</button>
+        <button class="stab" role="tab" aria-selected="false" onclick="switchTab(this,'aller-retour')">Aller-retour</button>
+        <button class="stab" role="tab" aria-selected="false" onclick="switchTab(this,'covoiturage')">Covoiturage</button>
+      </div>
+      <div class="search-bar" id="search-form" role="search" aria-label="Rechercher un trajet">
+        <!-- Field 1: Departure -->
+        <div class="sf" id="sf-depart" tabindex="0" role="group" aria-label="Ville de départ" onclick="focusInput(this)">
+          <div class="sf-icon"><i class="fas fa-circle" style="font-size:0.5rem;"></i></div>
           <div class="sf-content">
-            <span class="sf-label">Départ</span>
-            <input type="text" placeholder="Ville de départ"/>
+            <label class="sf-label" for="input-depart">Départ</label>
+            <input type="text" id="input-depart" placeholder="Ville de départ" autocomplete="off" list="cities-list" aria-required="true"/>
+          </div>
+          <button class="sf-clear" onclick="clearField('input-depart')" aria-label="Effacer départ" style="display:none"><i class="fas fa-times"></i></button>
+        </div>
+
+        <!-- Swap button -->
+        <button class="swap-btn" onclick="swapCities()" aria-label="Inverser départ et arrivée" title="Inverser">
+          <i class="fas fa-exchange-alt"></i>
+        </button>
+
+        <!-- Field 2: Destination -->
+        <div class="sf" id="sf-dest" tabindex="0" role="group" aria-label="Ville d'arrivée" onclick="focusInput(this)">
+          <div class="sf-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="sf-content">
+            <label class="sf-label" for="input-dest">Destination</label>
+            <input type="text" id="input-dest" placeholder="Ville d'arrivée" autocomplete="off" list="cities-list" aria-required="true"/>
+          </div>
+          <button class="sf-clear" onclick="clearField('input-dest')" aria-label="Effacer destination" style="display:none"><i class="fas fa-times"></i></button>
+        </div>
+
+        <!-- Field 3: Departure date -->
+        <div class="sf" id="sf-date" tabindex="0" role="group" aria-label="Date de départ" onclick="focusInput(this)">
+          <div class="sf-icon"><i class="fas fa-calendar-alt"></i></div>
+          <div class="sf-content">
+            <label class="sf-label" for="input-date">Date départ</label>
+            <input type="date" id="input-date" aria-label="Date de départ" aria-required="true"/>
           </div>
         </div>
-        <div class="sf">
-          <i class="fas fa-map-marker-alt sf-icon"></i>
+
+        <!-- Field 4: Return date (visible for aller-retour) -->
+        <div class="sf" id="sf-retour" tabindex="0" role="group" aria-label="Date de retour" onclick="focusInput(this)" style="display:none;">
+          <div class="sf-icon"><i class="fas fa-calendar-check"></i></div>
           <div class="sf-content">
-            <span class="sf-label">Destination</span>
-            <input type="text" placeholder="Ville d'arrivée"/>
+            <label class="sf-label" for="input-retour">Date retour</label>
+            <input type="date" id="input-retour" aria-label="Date de retour"/>
           </div>
         </div>
-        <div class="sf">
-          <i class="fas fa-calendar-alt sf-icon"></i>
-          <div class="sf-content">
-            <span class="sf-label">Départ</span>
-            <input type="text" placeholder="Aujourd'hui" id="df"/>
-          </div>
-        </div>
-        <div class="sf" style="border-right:1px solid var(--border)">
-          <i class="fas fa-calendar-check sf-icon"></i>
-          <div class="sf-content">
-            <span class="sf-label">Date de retour</span>
-            <input type="text" placeholder="Date de retour"/>
-          </div>
-        </div>
-        <div class="sf" style="flex:1.2">
-          <i class="fas fa-user sf-icon"></i>
+
+        <!-- Field 5: Passengers -->
+        <div class="sf" id="sf-pass" style="flex:1.2; position:relative;" tabindex="0" aria-haspopup="true" role="button" aria-label="Nombre de passagers" onclick="togglePassengers()">
+          <div class="sf-icon"><i class="fas fa-user"></i></div>
           <div class="sf-content">
             <span class="sf-label">Passagers</span>
-            <div class="sf-pass-main">1 passager</div>
+            <div class="sf-pass-main" id="pass-display">1 passager</div>
+          </div>
+          <!-- Passengers dropdown -->
+          <div class="pass-dropdown" id="pass-dropdown" role="dialog" aria-label="Sélectionner passagers" style="display:none;">
+            <div class="pass-row">
+              <div>
+                <div class="pass-type">Adultes</div>
+                <div class="pass-sub">12 ans et plus</div>
+              </div>
+              <div class="pass-counter">
+                <button class="pass-btn" onclick="changePass(event,'adults',-1)" aria-label="Moins d'adultes">−</button>
+                <span id="adults-count">1</span>
+                <button class="pass-btn" onclick="changePass(event,'adults',1)" aria-label="Plus d'adultes">+</button>
+              </div>
+            </div>
+            <div class="pass-row">
+              <div>
+                <div class="pass-type">Enfants</div>
+                <div class="pass-sub">2 à 11 ans</div>
+              </div>
+              <div class="pass-counter">
+                <button class="pass-btn" onclick="changePass(event,'children',-1)" aria-label="Moins d'enfants">−</button>
+                <span id="children-count">0</span>
+                <button class="pass-btn" onclick="changePass(event,'children',1)" aria-label="Plus d'enfants">+</button>
+              </div>
+            </div>
+            <button class="pass-confirm" onclick="confirmPassengers(event)">Confirmer</button>
           </div>
         </div>
-        <button class="btn-search"><i class="fas fa-search"></i> Rechercher</button>
+
+        <button class="btn-search" onclick="doSearch()" aria-label="Lancer la recherche">
+          <i class="fas fa-search"></i> Rechercher
+        </button>
       </div>
+
+      <!-- Cities datalist -->
+      <datalist id="cities-list">
+        <option value="Brazzaville">
+        <option value="Pointe-Noire">
+        <option value="Dolisie">
+        <option value="Ouesso">
+        <option value="Libreville">
+        <option value="Port-Gentil">
+        <option value="Douala">
+        <option value="Yaoundé">
+        <option value="Kinshasa">
+        <option value="Lubumbashi">
+        <option value="N'Djamena">
+        <option value="Moundou">
+        <option value="Bangui">
+        <option value="Bouar">
+        <option value="Malabo">
+        <option value="Bata">
+      </datalist>
+
       <div class="search-footer">
         <input type="checkbox" checked id="acc"/>
         <label for="acc">Afficher les hébergements</label>
+        <span class="search-tip"><i class="fas fa-shield-alt"></i> Réservation sécurisée</span>
+      </div>
+    </div>
+  </div>
+
+<!-- ROUTE IMAGES -->
+<div class="route-banner">
+  <div class="route-banner-title">
+    <i class="fas fa-road"></i> Trajets populaires – Découvrez nos villes
+  </div>
+  <div class="route-imgs">
+    <div class="route-img-card" onclick="document.getElementById('input-depart').value='Brazzaville'; document.getElementById('input-dest').value='Pointe-Noire';" title="Trajet Brazzaville → Pointe-Noire">
+      <img src="https://images.unsplash.com/photo-1599423423444-8b1b6f4e8a22?w=800&q=80" alt="Brazzaville – Congo"/>
+      <div class="route-img-overlay"></div>
+      <span class="route-img-badge">🇨🇬 Congo</span>
+      <div class="route-img-info">
+        <div class="route-img-name">Brazzaville → Pointe-Noire</div>
+        <div class="route-img-meta">À partir de 8 000 FCFA · 6h de route · 42 trajets/jour</div>
+      </div>
+    </div>
+    <div class="route-img-card" onclick="document.getElementById('input-depart').value='Libreville'; document.getElementById('input-dest').value='Port-Gentil';" title="Trajet Libreville → Port-Gentil">
+      <img src="https://images.unsplash.com/photo-1614531341773-3bff15b7f2d7?w=800&q=80" alt="Libreville – Gabon"/>
+      <div class="route-img-overlay"></div>
+      <span class="route-img-badge">🇬🇦 Gabon</span>
+      <div class="route-img-info">
+        <div class="route-img-name">Libreville → Port-Gentil</div>
+        <div class="route-img-meta">À partir de 6 000 FCFA · 4h de route · 35 trajets/jour</div>
       </div>
     </div>
   </div>
@@ -1045,6 +1249,107 @@ Sois bref (3-4 phrases max), utilise des emojis, sois pratique. Si hors sujet tr
       addMsg('⚠️ Connexion à Groq impossible. Vérifiez votre clé API.', 'bot');
     }
   }
+
+  // ── SEARCH FUNCTIONALITY ──────────────────────────────────
+  // Set today's date as default
+  (function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('input-date').value = today;
+    document.getElementById('input-date').min = today;
+    const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
+    document.getElementById('input-retour').value = tomorrow.toISOString().split('T')[0];
+    document.getElementById('input-retour').min = today;
+  })();
+
+  function switchTab(btn, type) {
+    document.querySelectorAll('.stab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+    const retourField = document.getElementById('sf-retour');
+    retourField.style.display = (type === 'aller-retour') ? '' : 'none';
+  }
+
+  function focusInput(sf) {
+    const inp = sf.querySelector('input');
+    if (inp) { inp.focus(); }
+  }
+
+  function clearField(id) {
+    event.stopPropagation();
+    const inp = document.getElementById(id);
+    inp.value = '';
+    inp.focus();
+  }
+
+  function swapCities() {
+    const dep = document.getElementById('input-depart');
+    const dest = document.getElementById('input-dest');
+    [dep.value, dest.value] = [dest.value, dep.value];
+    dep.focus();
+  }
+
+  // Show clear button when field has value
+  document.querySelectorAll('.sf input[type="text"]').forEach(inp => {
+    inp.addEventListener('input', function() {
+      const clearBtn = this.closest('.sf').querySelector('.sf-clear');
+      if (clearBtn) clearBtn.style.display = this.value ? '' : 'none';
+    });
+  });
+
+  // Passengers
+  let passengers = { adults: 1, children: 0 };
+
+  function togglePassengers() {
+    const dd = document.getElementById('pass-dropdown');
+    dd.style.display = dd.style.display === 'none' ? '' : 'none';
+  }
+
+  function changePass(e, type, delta) {
+    e.stopPropagation();
+    passengers[type] = Math.max(0, passengers[type] + delta);
+    if (type === 'adults') passengers.adults = Math.max(1, passengers.adults);
+    document.getElementById('adults-count').textContent = passengers.adults;
+    document.getElementById('children-count').textContent = passengers.children;
+    updatePassDisplay();
+  }
+
+  function updatePassDisplay() {
+    const total = passengers.adults + passengers.children;
+    const txt = total === 1 ? '1 passager' : total + ' passagers';
+    document.getElementById('pass-display').textContent = txt;
+  }
+
+  function confirmPassengers(e) {
+    e.stopPropagation();
+    document.getElementById('pass-dropdown').style.display = 'none';
+  }
+
+  // Close dropdown on outside click
+  document.addEventListener('click', function(e) {
+    const sfPass = document.getElementById('sf-pass');
+    if (sfPass && !sfPass.contains(e.target)) {
+      const dd = document.getElementById('pass-dropdown');
+      if (dd) dd.style.display = 'none';
+    }
+  });
+
+  function doSearch() {
+    const dep = document.getElementById('input-depart').value.trim();
+    const dest = document.getElementById('input-dest').value.trim();
+    const date = document.getElementById('input-date').value;
+    if (!dep) { document.getElementById('input-depart').focus(); return; }
+    if (!dest) { document.getElementById('input-dest').focus(); return; }
+    // Animate search button
+    const btn = document.querySelector('.btn-search');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Recherche...';
+    setTimeout(() => { btn.innerHTML = '<i class="fas fa-search"></i> Rechercher'; }, 1500);
+  }
+
+  // Keyboard accessibility for search fields
+  document.querySelectorAll('.sf[tabindex]').forEach(sf => {
+    sf.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { focusInput(this); }
+    });
+  });
 
   // Auto-resize textarea
   document.getElementById('basile-input').addEventListener('input', function() {
